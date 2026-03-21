@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0D0D0D">
+<meta name="description" content="Ferramentas práticas para o advogado previdenciarista">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Nação Previ | Ferramentas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ouro: #C5B061;
+    --ouro-claro: #D4C47A;
+    --ouro-escuro: #9E8C4A;
+    --preto: #0D0D0D;
+    --preto-card: #141414;
+    --preto-borda: #222222;
+    --cinza: #888;
+    --branco: #F5F0E8;
+    --fonte-titulo: 'Cormorant Garamond', serif;
+    --fonte-corpo: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--preto);
+    color: var(--branco);
+    font-family: var(--fonte-corpo);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== TELA DE CAPTURA ===== */
+  #tela-captura {
+    position: fixed;
+    inset: 0;
+    background: var(--preto);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .captura-box {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
+
+  .captura-logo {
+    font-family: var(--fonte-titulo);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--ouro);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .captura-sub {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--cinza);
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+
+  .captura-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 22px;
+    color: var(--branco);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .captura-desc {
+    font-size: 13px;
+    color: var(--cinza);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .captura-form input {
+    width: 100%;
+    background: #1A1A1A;
+    border: 1px solid var(--preto-borda);
+    border-radius: 8px;
+    padding: 14px 16px;
+    color: var(--branco);
+    font-family: var(--fonte-corpo);
+    font-size: 14px;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .captura-form input:focus {
+    border-color: var(--ouro);
+  }
+
+  .captura-form input::placeholder { color: #444; }
+
+  .btn-acessar {
+    width: 100%;
+    background: var(--ouro);
+    color: var(--preto);
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-family: var(--fonte-corpo);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 4px;
+  }
+
+  .btn-acessar:hover { background: var(--ouro-claro); }
+  .btn-acessar:active { transform: scale(0.98); }
+
+  .captura-privacidade {
+    font-size: 11px;
+    color: #444;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  .divisa-ouro {
+    width: 60px;
+    height: 1px;
+    background: var(--ouro);
+    margin: 20px auto;
+    opacity: 0.4;
+  }
+
+  /* ===== APP PRINCIPAL ===== */
+  #app {
+    display: none;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--preto-card);
+    border-bottom: 1px solid var(--preto-borda);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-logo {
+    font-family: var(--fonte-titulo);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ouro);
+    letter-spacing: 1px;
+  }
+
+  .header-sub {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--cinza);
+    text-transform: uppercase;
+  }
+
+  .header-user {
+    font-size: 12px;
+    color: var(--cinza);
+  }
+
+  /* NAV BOTTOM */
+  .nav-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--preto-card);
+    border-top: 1px solid var(--preto-borda);
+    display: flex;
+    z-index: 100;
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--cinza);
+    font-size: 10px;
+    gap: 4px;
+    border: none;
+    background: none;
+    font-family: var(--fonte-corpo);
+    letter-spacing: 0.5px;
+  }
+
+  .nav-item.ativo { color: var(--ouro); }
+
+  .nav-icone {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  /* TELAS */
+  .tela {
+    display: none;
+    padding: 20px;
+  }
+
+  .tela.ativa {
+    display: block;
+    padding-top: 16px;
+    animation: fadeIn 0.2s ease forwards;
+  }
+
+  .tela > *:first-child { margin-top: 0 !important; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* COMPONENTES */
+  .section-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ouro);
+    margin-bottom: 4px;
+  }
+
+  .section-desc {
+    font-size: 13px;
+    color: var(--cinza);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .card {
+    background: var(--preto-card);
+    border: 1px solid var(--preto-borda);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+
+  .card-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 18px;
+    color: var(--ouro);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--cinza);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .label {
+    font-size: 11px;
+    color: var(--cinza);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .input {
+    width: 100%;
+    background: #1A1A1A;
+    border: 1px solid var(--preto-borda);
+    border-radius: 6px;
+    padding: 11px 14px;
+    color: var(--branco);
+    font-family: var(--fonte-corpo);
+    font-size: 14px;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .input:focus { border-color: var(--ouro); }
+
+  .select {
+    width: 100%;
+    background: #1A1A1A;
+    border: 1px solid var(--preto-borda);
+    border-radius: 6px;
+    padding: 11px 14px;
+    color: var(--branco);
+    font-family: var(--fonte-corpo);
+    font-size: 14px;
+    margin-bottom: 12px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+  }
+
+  .btn {
+    background: var(--ouro);
+    color: var(--preto);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-family: var(--fonte-corpo);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+  }
+
+  .btn:hover { background: var(--ouro-claro); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ouro);
+    border: 1px solid var(--ouro);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-family: var(--fonte-corpo);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .btn-outline:hover {
+    background: var(--ouro);
+    color: var(--preto);
+  }
+
+  .resultado-box {
+    background: #0A1A0A;
+    border: 1px solid #1A3A1A;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+    display: none;
+  }
+
+  .resultado-box.visivel { display: block; }
+
+  .resultado-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #1A3A1A;
+    font-size: 13px;
+  }
+
+  .resultado-linha:last-child { border-bottom: none; }
+  .resultado-label { color: var(--cinza); }
+  .resultado-valor { color: #5BDF5B; font-weight: 600; }
+  .resultado-valor.destaque {
+    color: var(--ouro);
+    font-size: 16px;
+    font-family: var(--fonte-titulo);
+  }
+
+  /* PEÇAS */
+  .peca-categoria {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ouro-escuro);
+    margin-bottom: 16px;
+    margin-top: 8px;
+  }
+
+  .peca-item {
+    background: var(--preto-card);
+    border: 1px solid var(--preto-borda);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .peca-item:hover { border-color: var(--ouro); }
+
+  .peca-item-titulo {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  .peca-item-desc {
+    font-size: 11px;
+    color: var(--cinza);
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    display: none;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .modal-overlay.visivel { display: flex; align-items: flex-start; justify-content: center; }
+
+  .modal-box {
+    background: var(--preto-card);
+    border: 1px solid var(--preto-borda);
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .modal-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 22px;
+    color: var(--ouro);
+    margin-bottom: 16px;
+  }
+
+  .modal-conteudo {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #ccc;
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+    background: #0D0D0D;
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .modal-fechar {
+    background: #222;
+    color: var(--cinza);
+    border: 1px solid var(--preto-borda);
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--fonte-corpo);
+    font-size: 13px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  /* NOTÍCIAS */
+  .noticia-item {
+    background: var(--preto-card);
+    border: 1px solid var(--preto-borda);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.2s;
+  }
+
+  .noticia-item:hover { border-color: var(--ouro); }
+
+  .noticia-fonte {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ouro-escuro);
+    margin-bottom: 6px;
+  }
+
+  .noticia-titulo {
+    font-size: 14px;
+    color: var(--branco);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .noticia-data {
+    font-size: 11px;
+    color: #555;
+  }
+
+  .loading {
+    text-align: center;
+    color: var(--cinza);
+    padding: 40px 0;
+    font-size: 13px;
+  }
+
+  .loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-top-color: var(--ouro);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .tag-ouro {
+    display: inline-block;
+    background: rgba(197,176,97,0.1);
+    border: 1px solid rgba(197,176,97,0.3);
+    color: var(--ouro);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .linha-ouro {
+    height: 1px;
+    background: linear-gradient(90deg, var(--ouro) 0%, transparent 100%);
+    margin: 20px 0;
+    opacity: 0.3;
+  }
+
+  /* GRID BÔNUS */
+  .bonus-card {
+    background: linear-gradient(135deg, #1A1500 0%, #0D0D0D 100%);
+    border: 1px solid rgba(197,176,97,0.3);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .bonus-card:hover {
+    border-color: var(--ouro);
+    transform: translateY(-2px);
+  }
+
+  .bonus-icone { font-size: 32px; margin-bottom: 10px; }
+
+  .bonus-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 18px;
+    color: var(--ouro);
+    margin-bottom: 6px;
+  }
+
+  .bonus-desc {
+    font-size: 12px;
+    color: var(--cinza);
+    line-height: 1.5;
+  }
+
+  /* DOIS CAMPOS LADO A LADO */
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TELA DE CAPTURA -->
+<div id="tela-captura">
+  <div class="captura-box">
+    <div class="captura-logo">NAÇÃO PREVI</div>
+    <div class="captura-sub">Ferramentas do Previdenciarista</div>
+    <div class="divisa-ouro"></div>
+    <div class="captura-titulo">Acesso gratuito às ferramentas</div>
+    <div class="captura-desc">Calculadoras, modelos de peças e notícias previdenciárias. Tudo num lugar só.</div>
+    <div class="captura-form">
+      <input type="text" id="cap-nome" placeholder="Seu nome completo" autocomplete="name">
+      <input type="email" id="cap-email" placeholder="Seu melhor e-mail" autocomplete="email">
+      <input type="tel" id="cap-whats" placeholder="WhatsApp com DDD (ex: 11999999999)" autocomplete="tel">
+      <button class="btn-acessar" onclick="acessarApp()">ACESSAR AS FERRAMENTAS</button>
+    </div>
+    <div class="captura-privacidade">Seus dados são usados apenas para comunicações do Nação Previ.<br>Sem spam. Prometido.</div>
+  </div>
+</div>
+
+<!-- APP PRINCIPAL -->
+<div id="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="header-logo">NAÇÃO PREVI</div>
+      <div class="header-sub">Ferramentas</div>
+    </div>
+    <div class="header-user" id="header-nome"></div>
+  </div>
+
+  <!-- TELA: HOME -->
+  <div class="tela ativa" id="tela-home">
+    <br>
+    <div class="tag-ouro">Bem-vindo</div>
+    <div class="section-titulo">Suas Ferramentas</div>
+    <div class="section-desc">Tudo que o previdenciarista precisa no bolso.</div>
+
+    <div class="card" onclick="irPara('calc-especial')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">⚖️ Tempo Especial</div>
+      <div class="card-desc">Converta períodos especiais para tempo comum com os fatores corretos.</div>
+    </div>
+
+    <div class="card" onclick="irPara('calc-causa')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">💰 Valor da Causa</div>
+      <div class="card-desc">Calcule o valor da causa previdenciária de forma rápida e precisa.</div>
+    </div>
+
+    <div class="card" onclick="irPara('pecas')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">📄 Modelos de Peças</div>
+      <div class="card-desc">Acesse modelos prontos de petições previdenciárias para adaptar ao seu caso.</div>
+    </div>
+
+    <div class="card" onclick="irPara('noticias')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">📰 Notícias Previdenciárias</div>
+      <div class="card-desc">Fique atualizado com as últimas notícias do direito previdenciário.</div>
+    </div>
+
+    <div class="card" onclick="irPara('qualidade')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">🛡️ Qualidade de Segurado</div>
+      <div class="card-desc">Calcule a data de perda da qualidade de segurado conforme art. 15 da Lei 8.213/91.</div>
+    </div>
+
+    <div class="linha-ouro"></div>
+
+    <a class="bonus-card" href="https://chatgpt.com/g/g-69b1de169e548191948386fdda591611-cronos-previ" target="_blank">
+      <div class="bonus-icone">🤖</div>
+      <div class="bonus-titulo">Cronos Previ</div>
+      <div class="bonus-desc">Bônus: Gere linhas do tempo processuais com inteligência artificial. Acesso gratuito.</div>
+    </a>
+  </div>
+
+  <!-- TELA: CALCULADORA TEMPO ESPECIAL -->
+  <div class="tela" id="tela-calc-especial">
+    <div class="tag-ouro">Calculadora</div>
+    <div class="section-titulo">Tempo Especial</div>
+    <div class="section-desc">Converte períodos especiais para tempo comum e soma com períodos comuns.</div>
+
+    <div class="card">
+      <div class="card-titulo">Dados do Segurado</div>
+      <label class="label">Sexo</label>
+      <select class="select" id="esp-sexo" onchange="atualizarFator()">
+        <option value="M">Masculino — Fator 1,4</option>
+        <option value="F">Feminino — Fator 1,2</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <div class="card-titulo">Períodos Especiais</div>
+      <div class="card-desc">Informe os períodos trabalhados em condições especiais (insalubres/perigosos).</div>
+
+      <div id="periodos-especiais">
+        <div class="periodo-esp" data-idx="0">
+          <div class="row-2">
+            <div>
+              <label class="label">Anos</label>
+              <input type="number" class="input esp-anos" placeholder="0" min="0" value="0">
+            </div>
+            <div>
+              <label class="label">Meses</label>
+              <input type="number" class="input esp-meses" placeholder="0" min="0" max="11" value="0">
+            </div>
+          </div>
+          <div>
+            <label class="label">Dias</label>
+            <input type="number" class="input esp-dias" placeholder="0" min="0" max="30" value="0">
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-outline" onclick="adicionarPeriodoEsp()" style="margin-bottom:0">+ Adicionar período especial</button>
+    </div>
+
+    <div class="card">
+      <div class="card-titulo">Período Comum (opcional)</div>
+      <div class="card-desc">Tempo comum já existente para somar ao resultado.</div>
+      <div class="row-2">
+        <div>
+          <label class="label">Anos</label>
+          <input type="number" class="input" id="com-anos" placeholder="0" min="0" value="0">
+        </div>
+        <div>
+          <label class="label">Meses</label>
+          <input type="number" class="input" id="com-meses" placeholder="0" min="0" max="11" value="0">
+        </div>
+      </div>
+      <label class="label">Dias</label>
+      <input type="number" class="input" id="com-dias" placeholder="0" min="0" max="30" value="0">
+    </div>
+
+    <button class="btn" onclick="calcularEspecial()">CALCULAR</button>
+
+    <div class="resultado-box" id="res-especial">
+      <div class="resultado-linha">
+        <span class="resultado-label">Fator aplicado</span>
+        <span class="resultado-valor" id="res-esp-fator"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">Tempo especial convertido</span>
+        <span class="resultado-valor" id="res-esp-convertido"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">Tempo comum informado</span>
+        <span class="resultado-valor" id="res-esp-comum"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">TOTAL DE CONTRIBUIÇÃO</span>
+        <span class="resultado-valor destaque" id="res-esp-total"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA: CALCULADORA VALOR DA CAUSA -->
+  <div class="tela" id="tela-calc-causa">
+    <div class="tag-ouro">Calculadora</div>
+    <div class="section-titulo">Valor da Causa</div>
+    <div class="section-desc">Cálculo do valor da causa previdenciária conforme entendimento do STJ.</div>
+
+    <div class="card">
+      <div class="card-titulo">Dados do Benefício</div>
+
+      <label class="label">Tipo de benefício</label>
+      <select class="select" id="causa-tipo">
+        <option value="sm">Vinculado ao Salário Mínimo (1 SM)</option>
+        <option value="rmi">Acima do Salário Mínimo — informar RMI</option>
+      </select>
+
+      <div id="causa-sm-bloco">
+        <label class="label">Quantidade de salários mínimos</label>
+        <select class="select" id="causa-sm">
+          <option value="1">1 Salário Mínimo</option>
+          <option value="2">2 Salários Mínimos</option>
+          <option value="3">3 Salários Mínimos</option>
+          <option value="4">4 Salários Mínimos</option>
+          <option value="5">5 Salários Mínimos</option>
+        </select>
+      </div>
+
+      <div id="causa-rmi-bloco" style="display:none">
+        <label class="label">RMI — Renda Mensal Inicial (R$)</label>
+        <input type="number" class="input" id="causa-rmi" placeholder="Ex: 3000.00" step="0.01">
+        <div class="card-desc" style="font-size:11px; margin-bottom:8px;">Informe o valor do benefício na data da DIB. Os reajustes anuais (INPC) serão aplicados automaticamente mês a mês.</div>
+      </div>
+
+      <label class="label">DIB — Data de Início do Benefício</label>
+      <input type="date" class="input" id="causa-dib">
+
+      <label class="label">Data do Ajuizamento da Ação</label>
+      <input type="date" class="input" id="causa-ajuizamento">
+
+      <div class="card-desc" style="margin-top:4px; margin-bottom:0; font-size:11px;">
+        ⚠️ Pretérito limitado a 5 anos (60 meses) pela prescrição quinquenal. O primeiro reajuste é proporcional ao mês da DIB.<br><br>
+        ℹ️ Este cálculo não inclui o 13º salário. Para o valor total da causa com 13º, acrescente 1/12 do pretérito calculado.
+      </div>
+    </div>
+
+    <button class="btn" onclick="calcularCausa()">CALCULAR VALOR DA CAUSA</button>
+
+    <div class="resultado-box" id="res-causa">
+      <div class="resultado-linha">
+        <span class="resultado-label">SM na data do ajuizamento</span>
+        <span class="resultado-valor" id="res-causa-sm-atual"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">12 parcelas futuras</span>
+        <span class="resultado-valor" id="res-causa-futuro"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">Meses em atraso calculados</span>
+        <span class="resultado-valor" id="res-causa-meses"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">Total pretérito (mês a mês)</span>
+        <span class="resultado-valor" id="res-causa-preterito"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">VALOR TOTAL DA CAUSA</span>
+        <span class="resultado-valor destaque" id="res-causa-total"></span>
+      </div>
+      <div class="resultado-linha" id="res-causa-obs-row" style="display:none">
+        <span class="resultado-label" style="color:#888; font-size:11px;" id="res-causa-obs"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA: PEÇAS -->
+  <div class="tela" id="tela-pecas">
+    <div class="tag-ouro">Biblioteca</div>
+    <div class="section-titulo">Modelos de Peças</div>
+    <div class="section-desc">Modelos base para adaptar ao seu caso. Sempre consulte legislação e jurisprudência vigentes.</div>
+
+    <div class="peca-categoria">Benefícios por Incapacidade</div>
+    <div class="peca-item" onclick="abrirPeca('auxilio-incapacidade')">
+      <div class="peca-item-titulo">Pedido de Auxílio por Incapacidade Temporária</div>
+      <div class="peca-item-desc">Art. 59 da Lei 8.213/91 — incapacidade temporária superior a 15 dias</div>
+    </div>
+    <div class="peca-item" onclick="abrirPeca('aposentadoria-invalidez')">
+      <div class="peca-item-titulo">Pedido de Aposentadoria por Incapacidade Permanente</div>
+      <div class="peca-item-desc">Art. 42 da Lei 8.213/91 — incapacidade total e definitiva</div>
+    </div>
+
+    <div class="peca-categoria">Aposentadorias</div>
+    <div class="peca-item" onclick="abrirPeca('apos-especial')">
+      <div class="peca-item-titulo">Pedido de Aposentadoria Especial</div>
+      <div class="peca-item-desc">Art. 57 da Lei 8.213/91 — exposição a agentes nocivos</div>
+    </div>
+    <div class="peca-item" onclick="abrirPeca('apos-tempo-contribuicao')">
+      <div class="peca-item-titulo">Aposentadoria por Tempo de Contribuição (regra de transição)</div>
+      <div class="peca-item-desc">EC 103/2019 — regras de transição aplicáveis</div>
+    </div>
+
+    <div class="peca-categoria">Outros Benefícios</div>
+    <div class="peca-item" onclick="abrirPeca('pensao-morte')">
+      <div class="peca-item-titulo">Pedido de Pensão por Morte</div>
+      <div class="peca-item-desc">Art. 74 da Lei 8.213/91 — dependentes do segurado falecido</div>
+    </div>
+    <div class="peca-item" onclick="abrirPeca('bpc-loas')">
+      <div class="peca-item-titulo">Pedido de BPC/LOAS</div>
+      <div class="peca-item-desc">Art. 203 da CF e LOAS — pessoa com deficiência ou idoso</div>
+    </div>
+
+    <div class="peca-categoria">Recursos</div>
+    <div class="peca-item" onclick="abrirPeca('recurso-ordinario')">
+      <div class="peca-item-titulo">Recurso Ordinário ao CRPS</div>
+      <div class="peca-item-desc">Impugnação de decisão administrativa do INSS</div>
+    </div>
+  </div>
+
+<!-- TELA: NOTÍCIAS -->
+  <div class="tela" id="tela-noticias">
+    <div class="tag-ouro">Atualização Diária</div>
+    <div class="section-titulo">Boletim Previdenciário</div>
+    <div class="section-desc">Notícias e decisões das últimas 24 horas — STF, STJ, TRFs e DOU. Curadoria diária do Prof. Carlos Gouveia.</div>
+    <div class="card" style="border-left: 3px solid var(--ouro); text-align:center; padding: 32px 20px;">
+      <div style="font-size: 48px; margin-bottom: 16px;">📋</div>
+      <div class="card-titulo" style="font-size:22px; margin-bottom:8px;">Boletim do Dia</div>
+      <div class="card-desc" style="margin-bottom:24px;">Acesse os boletins diários com todas as notícias e decisões previdenciárias relevantes, organizadas por tribunal.</div>
+      <a href="https://drive.google.com/drive/folders/1VvPnrVI1EtlaFv7U-z9yhzMKZr2aR6TL?usp=sharing" target="_blank" class="btn" style="display:block; text-decoration:none; text-align:center;">📂 ABRIR BOLETINS</a>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <div class="card-titulo" style="font-size:14px;">Como funciona</div>
+      <div style="font-size:12px; color: var(--cinza); line-height:1.7; margin-top:8px;">
+        📅 Boletim gerado automaticamente todo dia<br>
+        ⚖️ Fontes: STF, STJ, CJF, TRF1 ao TRF6 e DOU<br>
+        🔍 Filtrado por palavras-chave previdenciárias<br>
+        📄 Formato PDF organizado por tribunal
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA: QUALIDADE DE SEGURADO -->
+  <div class="tela" id="tela-qualidade">
+    <div class="tag-ouro">Art. 15 — Lei 8.213/91</div>
+    <div class="section-titulo">Qualidade de Segurado</div>
+    <div class="section-desc">Calcula a data de perda da qualidade de segurado e verifica o status em qualquer data.</div>
+
+    <div class="card">
+      <div class="card-titulo">Categoria do Segurado</div>
+      <label class="label">Inciso aplicável</label>
+      <select class="select" id="qs-categoria" onchange="atualizarQS()">
+        <option value="II">Art. 15, II — Cessou atividade remunerada (12 meses)</option>
+        <option value="VI">Art. 15, VI — Segurado facultativo (6 meses)</option>
+        <option value="V">Art. 15, V — Serviço militar (3 meses após licenciamento)</option>
+        <option value="III">Art. 15, III — Doença de segregação compulsória (12 meses)</option>
+        <option value="IV">Art. 15, IV — Retido ou recluso (12 meses após livramento)</option>
+      </select>
+    </div>
+
+    <div class="card" id="qs-card-prorrogacao">
+      <div class="card-titulo">Prorrogações (Art. 15 §§1º e 2º)</div>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+        <input type="checkbox" id="qs-120contrib" style="width:18px;height:18px;accent-color:var(--ouro);">
+        <label style="font-size:13px; color:var(--branco);">Mais de 120 contribuições sem interrupção <span style="color:var(--cinza); font-size:11px;">(§1º — prorroga para 24 meses)</span></label>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <input type="checkbox" id="qs-desempregado" style="width:18px;height:18px;accent-color:var(--ouro);">
+        <label style="font-size:13px; color:var(--branco);">Desempregado com registro no Ministério do Trabalho <span style="color:var(--cinza); font-size:11px;">(§2º — acréscimo de 12 meses)</span></label>
+      </div>
+      <div class="card-desc" style="margin-top:10px; margin-bottom:0; font-size:11px;">
+        ⚠️ As prorrogações dos §§1º e 2º aplicam-se apenas ao inciso II.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-titulo">Datas</div>
+      <label class="label" id="qs-label-data">Data da última contribuição</label>
+      <input type="date" class="input" id="qs-data">
+      <label class="label" style="margin-top:4px;">Verificar qualidade em (opcional)</label>
+      <input type="date" class="input" id="qs-verificar">
+      <div class="card-desc" style="margin-bottom:0; font-size:11px;">Informe uma data para verificar se o segurado ainda estava na qualidade — ex: DER, data do óbito, data do acidente.</div>
+    </div>
+
+    <button class="btn" onclick="calcularQualidade()">CALCULAR QUALIDADE</button>
+
+    <div class="resultado-box" id="res-qualidade">
+      <div class="resultado-linha">
+        <span class="resultado-label">Prazo de graça</span>
+        <span class="resultado-valor" id="res-qs-prazo"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">Fim do período de graça</span>
+        <span class="resultado-valor" id="res-qs-fim-prazo"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">Vencimento da contribuição (§4º)</span>
+        <span class="resultado-valor" id="res-qs-vencimento"></span>
+      </div>
+      <div class="resultado-linha">
+        <span class="resultado-label">PERDA DA QUALIDADE DE SEGURADO</span>
+        <span class="resultado-valor destaque" id="res-qs-perda"></span>
+      </div>
+      <div class="resultado-linha" id="res-qs-status-row" style="display:none">
+        <span class="resultado-label" id="res-qs-status-label"></span>
+        <span class="resultado-valor" id="res-qs-status"></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAVIGATION BOTTOM -->
+<div class="nav-bottom" id="nav-bottom" style="display:none">
+  <button class="nav-item ativo" onclick="irPara('home')" id="nav-home">
+    <span class="nav-icone">🏠</span>
+    <span>Início</span>
+  </button>
+  <button class="nav-item" onclick="irPara('calc-especial')" id="nav-calc-especial">
+    <span class="nav-icone">⚖️</span>
+    <span>Especial</span>
+  </button>
+  <button class="nav-item" onclick="irPara('calc-causa')" id="nav-calc-causa">
+    <span class="nav-icone">💰</span>
+    <span>Causa</span>
+  </button>
+  <button class="nav-item" onclick="irPara('pecas')" id="nav-pecas">
+    <span class="nav-icone">📄</span>
+    <span>Peças</span>
+  </button>
+  <button class="nav-item" onclick="irPara('noticias')" id="nav-noticias">
+    <span class="nav-icone">📰</span>
+    <span>Notícias</span>
+  </button>
+  <button class="nav-item" onclick="irPara('qualidade')" id="nav-qualidade">
+    <span class="nav-icone">🛡️</span>
+    <span>Qualidade</span>
+  </button>
+</div>
+
+<!-- MODAL PEÇAS -->
+<div class="modal-overlay" id="modal-peca">
+  <div class="modal-box">
+    <div class="modal-titulo" id="modal-peca-titulo"></div>
+    <div class="modal-conteudo" id="modal-peca-conteudo"></div>
+    <button class="btn" onclick="copiarPeca()" style="margin-bottom:8px">📋 COPIAR MODELO</button>
+    <button class="modal-fechar" onclick="fecharModal()">Fechar</button>
+  </div>
+</div>
+
+<script>
+// ===== CAPTURA DE LEAD =====
+const FORMS_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdF4XnB-dEfVkCkhsBxv5Fq6jN5h0qXuO8MPql3RdwfDkp1Zg/formResponse';
+const ENTRY_NOME = 'entry.2037506205';
+const ENTRY_EMAIL = 'entry.1911379718';
+const ENTRY_WHATS = 'entry.954849402';
+
+function acessarApp() {
+  const nome = document.getElementById('cap-nome').value.trim();
+  const email = document.getElementById('cap-email').value.trim();
+  const whats = document.getElementById('cap-whats').value.trim();
+
+  if (!nome || !email || !whats) {
+    alert('Preencha todos os campos para acessar.');
+    return;
+  }
+
+  if (!email.includes('@')) {
+    alert('Informe um e-mail válido.');
+    return;
+  }
+
+  // Salva no localStorage
+  localStorage.setItem('np_nome', nome);
+  localStorage.setItem('np_email', email);
+  localStorage.setItem('np_whats', whats);
+  localStorage.setItem('np_acesso', '1');
+
+  // Envia para o Google Forms em background (sem redirecionamento)
+  const formData = new FormData();
+  formData.append(ENTRY_NOME, nome);
+  formData.append(ENTRY_EMAIL, email);
+  formData.append(ENTRY_WHATS, whats);
+  fetch(FORMS_ACTION, { method: 'POST', mode: 'no-cors', body: formData }).catch(() => {});
+
+  // Abre o app
+  entrarNoApp(nome);
+}
+
+function entrarNoApp(nome) {
+  document.getElementById('tela-captura').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('nav-bottom').style.display = 'flex';
+  const primeiroNome = nome.split(' ')[0];
+  document.getElementById('header-nome').textContent = primeiroNome;
+  carregarNoticias();
+}
+
+// Verifica se já tem acesso
+window.addEventListener('DOMContentLoaded', () => {
+  const acesso = localStorage.getItem('np_acesso');
+  if (acesso === '1') {
+    const nome = localStorage.getItem('np_nome') || '';
+    entrarNoApp(nome);
+  }
+});
+
+// ===== NAVEGAÇÃO =====
+function irPara(id) {
+  document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+  document.getElementById('tela-' + id).classList.add('ativa');
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('ativo');
+  window.scrollTo(0, 0);
+}
+
+// ===== CALCULADORA TEMPO ESPECIAL =====
+let periodosEsp = 1;
+
+function adicionarPeriodoEsp() {
+  periodosEsp++;
+  const div = document.createElement('div');
+  div.className = 'periodo-esp';
+  div.dataset.idx = periodosEsp - 1;
+  div.innerHTML = `
+    <div class="linha-ouro"></div>
+    <div class="row-2">
+      <div>
+        <label class="label">Anos</label>
+        <input type="number" class="input esp-anos" placeholder="0" min="0" value="0">
+      </div>
+      <div>
+        <label class="label">Meses</label>
+        <input type="number" class="input esp-meses" placeholder="0" min="0" max="11" value="0">
+      </div>
+    </div>
+    <div>
+      <label class="label">Dias</label>
+      <input type="number" class="input esp-dias" placeholder="0" min="0" max="30" value="0">
+    </div>
+  `;
+  document.getElementById('periodos-especiais').appendChild(div);
+}
+
+function atualizarFator() {}
+
+function calcularEspecial() {
+  const sexo = document.getElementById('esp-sexo').value;
+  const fator = sexo === 'M' ? 1.4 : 1.2;
+
+  // Soma todos os períodos especiais em meses decimais
+  // Unidade base: mês. 1 dia = 1/30 de mês
+  let totalMesesEsp = 0;
+  document.querySelectorAll('#periodos-especiais .periodo-esp').forEach(p => {
+    const anosEl = p.querySelector('.esp-anos'); const anos = anosEl ? (parseInt(anosEl.value) || 0) : 0;
+    const mesesEl = p.querySelector('.esp-meses'); const meses = mesesEl ? (parseInt(mesesEl.value) || 0) : 0;
+    const diasEl = p.querySelector('.esp-dias'); const dias = diasEl ? (parseInt(diasEl.value) || 0) : 0;
+    totalMesesEsp += (anos * 12) + meses + (dias / 30);
+  });
+
+  // Aplica o fator de conversão
+  const mesesConvertidos = totalMesesEsp * fator;
+
+  // Período comum em meses decimais
+  const comAnos = parseInt(document.getElementById('com-anos').value) || 0;
+  const comMeses = parseInt(document.getElementById('com-meses').value) || 0;
+  const comDias = parseInt(document.getElementById('com-dias').value) || 0;
+  const totalMesesCom = (comAnos * 12) + comMeses + (comDias / 30);
+
+  // Total
+  const totalMeses = mesesConvertidos + totalMesesCom;
+
+  // Formata em anos, meses e dias a partir de meses decimais
+  const fmt = (m) => {
+    const totalDias = Math.round(m * 30);
+    const a = Math.floor(totalDias / 360);
+    const meses = Math.floor((totalDias % 360) / 30);
+    const d = totalDias % 30;
+    let s = '';
+    if (a > 0) s += a + ' ano' + (a > 1 ? 's' : '');
+    if (meses > 0) s += (s ? ', ' : '') + meses + ' mês' + (meses > 1 ? 'es' : '');
+    if (d > 0) s += (s ? ' e ' : '') + d + ' dia' + (d > 1 ? 's' : '');
+    return s || '0 dias';
+  };
+
+  document.getElementById('res-esp-fator').textContent = fator.toFixed(1);
+  document.getElementById('res-esp-convertido').textContent = fmt(mesesConvertidos);
+  document.getElementById('res-esp-comum').textContent = fmt(totalMesesCom);
+  document.getElementById('res-esp-total').textContent = fmt(totalMeses);
+  document.getElementById('res-especial').classList.add('visivel');
+}
+
+// ===== CALCULADORA VALOR DA CAUSA =====
+const TABELA_SM = {
+  2010: 510, 2011: 545, 2012: 622, 2013: 678, 2014: 724,
+  2015: 788, 2016: 880, 2017: 937, 2018: 954, 2019: 998,
+  2020: 1045, 2021: 1100, 2022: 1212, 2023: 1320, 2024: 1412,
+  2025: 1518, 2026: 1621
+};
+
+const INDICES_REAJUSTE = {
+  2015: 6.23, 2016: 11.28, 2017: 6.58, 2018: 2.07, 2019: 3.43,
+  2020: 4.48, 2021: 5.45, 2022: 10.16, 2023: 5.93, 2024: 3.71,
+  2025: 4.77, 2026: 3.90
+};
+
+function getSM(ano) {
+  if (TABELA_SM[ano]) return TABELA_SM[ano];
+  if (ano < 2010) return 510;
+  return TABELA_SM[2026];
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const sel = document.getElementById('causa-tipo');
+  if (sel) {
+    sel.addEventListener('change', () => {
+      const isSM = sel.value === 'sm';
+      document.getElementById('causa-sm-bloco').style.display = isSM ? 'block' : 'none';
+      document.getElementById('causa-rmi-bloco').style.display = isSM ? 'none' : 'block';
+    });
+  }
+});
+
+function calcularValorMes(rmi, dibDate, mesDate) {
+  if (mesDate <= dibDate) return rmi;
+  let valor = rmi;
+  const anoDIB = dibDate.getFullYear();
+  const mesDIB = dibDate.getMonth();
+  for (let ano = anoDIB + 1; ano <= mesDate.getFullYear(); ano++) {
+    const indice = INDICES_REAJUSTE[ano];
+    if (!indice) continue;
+    if (ano === anoDIB + 1) {
+      const mesesRestantes = 11 - mesDIB;
+      const proporcao = mesesRestantes / 12;
+      valor = valor * (1 + (indice / 100) * proporcao);
+    } else {
+      valor = valor * (1 + indice / 100);
+    }
+  }
+  return valor;
+}
+
+function calcularCausa() {
+  const tipo = document.getElementById('causa-tipo').value;
+  const dibStr = document.getElementById('causa-dib').value;
+  const ajuizStr = document.getElementById('causa-ajuizamento').value;
+
+  if (!dibStr || !ajuizStr) { alert('Informe a DIB e a data do ajuizamento.'); return; }
+
+  const dib = new Date(dibStr + 'T00:00:00');
+  const ajuiz = new Date(ajuizStr + 'T00:00:00');
+
+  if (dib >= ajuiz) { alert('A DIB deve ser anterior à data do ajuizamento.'); return; }
+
+  // Conta meses totais da DIB ao ajuizamento (para verificar prescrição)
+  let cursorContagem = new Date(dib);
+  let mesesTotal = 0;
+  while (cursorContagem < ajuiz) { cursorContagem.setMonth(cursorContagem.getMonth() + 1); mesesTotal++; }
+  let prescricao = mesesTotal > 60;
+
+  // Percorre da DIB até o mês do ajuizamento
+  // Se prescrição, começa 60 meses antes do ajuizamento
+  let inicio = new Date(dib);
+  if (prescricao) {
+    inicio = new Date(ajuiz);
+    inicio.setMonth(inicio.getMonth() - 60);
+  }
+
+  let preterito = 0;
+  let mesesCalc = 0;
+  let cursor = new Date(inicio);
+
+  while (true) {
+    const mesmoMes = cursor.getFullYear() === ajuiz.getFullYear() && cursor.getMonth() === ajuiz.getMonth();
+
+    if (tipo === 'sm') {
+      const multSM = parseFloat(document.getElementById('causa-sm').value) || 1;
+      const sm = getSM(cursor.getFullYear()) * multSM;
+      if (mesmoMes) {
+        // Mês parcial: usa 30 dias comerciais
+        const diasDecorridos = ajuiz.getDate();
+        preterito += sm * diasDecorridos / 30;
+        mesesCalc++;
+        break;
+      }
+      preterito += sm;
+    } else {
+      const rmi = parseFloat(document.getElementById('causa-rmi').value) || 0;
+      if (rmi <= 0) { alert('Informe o valor da RMI.'); return; }
+      const valorMes = calcularValorMes(rmi, dib, new Date(cursor));
+      if (mesmoMes) {
+        const diasDecorridos = ajuiz.getDate();
+        preterito += valorMes * diasDecorridos / 30;
+        mesesCalc++;
+        break;
+      }
+      preterito += valorMes;
+    }
+
+    mesesCalc++;
+    cursor.setMonth(cursor.getMonth() + 1);
+    if (cursor > ajuiz) break;
+  }
+
+  // Valor no mês do ajuizamento para parcelas futuras (mês cheio)
+  let valorAjuiz;
+  if (tipo === 'sm') {
+    const multSM = parseFloat(document.getElementById('causa-sm').value) || 1;
+    valorAjuiz = getSM(ajuiz.getFullYear()) * multSM;
+  } else {
+    valorAjuiz = calcularValorMes(parseFloat(document.getElementById('causa-rmi').value), dib, ajuiz);
+  }
+
+  const futuro = valorAjuiz * 12;
+  const total = preterito + futuro;
+
+  const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const tipoLabel = tipo === 'sm' ? 'SM ' + ajuiz.getFullYear() : 'valor reajustado ' + ajuiz.getFullYear();
+
+  document.getElementById('res-causa-sm-atual').textContent = fmt(valorAjuiz) + ' (' + tipoLabel + ')';
+  document.getElementById('res-causa-futuro').textContent = fmt(futuro);
+  document.getElementById('res-causa-meses').textContent = mesesCalc + (prescricao ? ' (limitado — prescrição quinquenal)' : '');
+  document.getElementById('res-causa-preterito').textContent = fmt(preterito);
+  document.getElementById('res-causa-total').textContent = fmt(total);
+
+  if (prescricao) {
+    document.getElementById('res-causa-obs-row').style.display = 'flex';
+    document.getElementById('res-causa-obs').textContent = '⚠️ DIB há mais de 5 anos. Pretérito limitado a 60 meses (art. 103, parágrafo único, Lei 8.213/91).';
+  } else {
+    document.getElementById('res-causa-obs-row').style.display = 'none';
+  }
+
+  document.getElementById('res-causa').classList.add('visivel');
+}
+
+// ===== MODELOS DE PEÇAS =====
+const pecas = {
+  'auxilio-incapacidade': {
+    titulo: 'Pedido de Auxílio por Incapacidade Temporária',
+    conteudo: `AO JUÍZO DA ___ VARA FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE ________ - SEÇÃO JUDICIÁRIA DE ________
+
+[NOME COMPLETO DO ADVOGADO], inscrito na OAB/__ sob nº ___, com escritório na [ENDEREÇO], vem, em nome de [NOME DO CLIENTE], [qualificação completa], [CPF], [endereço], propor
+
+AÇÃO DE CONCESSÃO DE AUXÍLIO POR INCAPACIDADE TEMPORÁRIA
+com pedido de tutela de urgência
+em face do INSTITUTO NACIONAL DO SEGURO SOCIAL – INSS
+
+pelos fatos e fundamentos a seguir expostos:
+
+I – DOS FATOS
+
+O(A) requerente trabalha/trabalhou como [PROFISSÃO], submetendo-se às condições de [DESCREVER]. Em [DATA], foi acometido(a) de [DOENÇA/LESÃO], ficando incapacitado(a) para o trabalho, conforme atestado médico anexo.
+
+Requereu o benefício administrativamente em [DATA], tendo o pedido sido indeferido sob o fundamento de [MOTIVO DO INDEFERIMENTO].
+
+II – DO DIREITO
+
+Nos termos do art. 59 da Lei nº 8.213/91, o auxílio por incapacidade temporária é devido ao segurado que ficar incapacitado para o trabalho por mais de 15 (quinze) dias consecutivos, sendo o benefício pago a partir do 16º dia.
+
+São requisitos:
+- Qualidade de segurado
+- Cumprimento da carência (12 contribuições mensais — art. 25, I, da Lei 8.213/91)
+- Incapacidade comprovada por perícia médica
+
+O requerente comprova sua condição de segurado e o cumprimento da carência pelos documentos anexos.
+
+III – DA TUTELA DE URGÊNCIA
+
+Presentes os requisitos do art. 300 do CPC: probabilidade do direito (laudos e documentação médica robustos) e perigo de dano (natureza alimentar do benefício).
+
+Requer-se a antecipação da tutela para implantação imediata do benefício.
+
+IV – DOS PEDIDOS
+
+Ante o exposto, requer:
+a) A concessão da tutela de urgência para implantação do benefício;
+b) A procedência do pedido, com condenação do INSS a:
+   - Conceder o auxílio por incapacidade temporária desde a data do requerimento administrativo;
+   - Pagar as parcelas em atraso, corrigidas monetariamente e acrescidas de juros;
+c) A condenação em honorários advocatícios (art. 85 do CPC).
+
+Valor da causa: R$ [VALOR]
+
+[CIDADE], [DATA]
+
+[NOME DO ADVOGADO]
+OAB/__ nº ___
+
+⚠️ ATENÇÃO: Este é um modelo base. Adapte ao caso concreto, verifique a jurisprudência atual e a legislação vigente.`
+  },
+  'aposentadoria-invalidez': {
+    titulo: 'Pedido de Aposentadoria por Incapacidade Permanente',
+    conteudo: `AO JUÍZO DA ___ VARA FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE ________ - SEÇÃO JUDICIÁRIA DE ________
+
+[NOME DO ADVOGADO], OAB/__ nº ___, em nome de [NOME DO CLIENTE], [qualificação], propõe
+
+AÇÃO DE CONCESSÃO DE APOSENTADORIA POR INCAPACIDADE PERMANENTE
+em face do INSTITUTO NACIONAL DO SEGURO SOCIAL – INSS
+
+I – DOS FATOS
+
+O(A) requerente é portador(a) de [DOENÇA], diagnosticado(a) em [DATA], conforme documentação médica anexa. A enfermidade tornou-o(a) total e definitivamente incapaz para qualquer atividade laboral.
+
+Requereu o benefício em [DATA], tendo sido indeferido pelo INSS por [MOTIVO].
+
+II – DO DIREITO
+
+Nos termos do art. 42 da Lei 8.213/91, a aposentadoria por incapacidade permanente é devida ao segurado que, estando ou não em gozo de auxílio por incapacidade temporária, for considerado incapaz e insusceptível de reabilitação para o exercício de atividade que lhe garanta a subsistência.
+
+Requisitos demonstrados:
+- Qualidade de segurado (contribuições em dia)
+- Carência cumprida (12 contribuições — art. 25, I)
+- Incapacidade total e permanente (laudos médicos)
+
+[Se for doença grave prevista no art. 151 da Lei 8.213/91: independe de carência]
+
+III – DA TUTELA DE URGÊNCIA
+
+Requer antecipação de tutela diante da natureza alimentar do benefício e da comprovação médica robusta da incapacidade.
+
+IV – DOS PEDIDOS
+
+a) Tutela de urgência para implantação imediata;
+b) Concessão da aposentadoria por incapacidade permanente desde a data do requerimento;
+c) Pagamento das prestações atrasadas com correção e juros;
+d) Honorários advocatícios.
+
+Valor da causa: R$ [VALOR]
+
+[CIDADE], [DATA]
+[ADVOGADO] — OAB/__ nº ___
+
+⚠️ Modelo base. Adapte ao caso concreto.`
+  },
+  'apos-especial': {
+    titulo: 'Pedido de Aposentadoria Especial',
+    conteudo: `AO JUÍZO DA ___ VARA FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE ________ - SEÇÃO JUDICIÁRIA DE ________
+
+[NOME DO ADVOGADO], OAB/__ nº ___, em nome de [NOME DO CLIENTE], propõe
+
+AÇÃO DE CONCESSÃO DE APOSENTADORIA ESPECIAL
+em face do INSTITUTO NACIONAL DO SEGURO SOCIAL – INSS
+
+I – DOS FATOS
+
+O(A) requerente trabalhou durante [PERÍODO] na função de [CARGO/FUNÇÃO], exposto(a) de forma habitual e permanente ao agente nocivo [DESCREVER AGENTE: ruído, calor, químico, etc.], acima dos limites de tolerância legais.
+
+Requereu o benefício em [DATA]. O INSS indeferiu alegando [MOTIVO DO INDEFERIMENTO].
+
+II – DO DIREITO
+
+O art. 57 da Lei 8.213/91 assegura a aposentadoria especial ao segurado que trabalhou sujeito a condições especiais que prejudiquem a saúde ou a integridade física, durante 15, 20 ou 25 anos.
+
+Fundamentos:
+- PPP (Perfil Profissiográfico Previdenciário) comprova a exposição ao agente nocivo
+- LTCAT ou laudo técnico confirma as condições do ambiente
+- Enquadramento no Anexo IV do Decreto 3.048/99
+- [Se período anterior a 1995: enquadramento por categoria profissional]
+
+DOCUMENTOS ESSENCIAIS:
+- PPP assinado pelo responsável técnico
+- CTPS
+- [LTCAT se necessário]
+
+III – DOS PEDIDOS
+
+a) Procedência do pedido para concessão da aposentadoria especial;
+b) DIP: [DATA DE INÍCIO DO PROCESSO — data do requerimento administrativo];
+c) Pagamento das parcelas em atraso;
+d) Honorários advocatícios.
+
+Valor da causa: R$ [VALOR]
+
+[CIDADE], [DATA]
+[ADVOGADO] — OAB/__ nº ___
+
+⚠️ Modelo base. Verifique o enquadramento específico do caso e a jurisprudência atual do STJ.`
+  },
+  'apos-tempo-contribuicao': {
+    titulo: 'Aposentadoria por Tempo de Contribuição — Regra de Transição (EC 103/2019)',
+    conteudo: `AO JUÍZO DA ___ VARA FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE ________ - SEÇÃO JUDICIÁRIA DE ________
+
+[NOME DO ADVOGADO], OAB/__ nº ___, em nome de [NOME DO CLIENTE], propõe
+
+AÇÃO DE CONCESSÃO DE APOSENTADORIA POR TEMPO DE CONTRIBUIÇÃO
+(Regra de transição — EC 103/2019)
+em face do INSTITUTO NACIONAL DO SEGURO SOCIAL – INSS
+
+I – DOS FATOS
+
+O(A) requerente possui [TEMPO TOTAL] de contribuição, preenchendo os requisitos da regra de transição prevista no art. 15 ou 16 da EC 103/2019.
+
+Requereu o benefício em [DATA] e foi indeferido por [MOTIVO].
+
+II – DO DIREITO
+
+A EC 103/2019 estabeleceu regras de transição para os segurados que já estavam filiados ao RGPS antes de 13/11/2019.
+
+IDENTIFICAR A REGRA APLICÁVEL:
+□ Pedágio de 50% (art. 17): acréscimo de 50% do tempo faltante + pontos progressivos
+□ Pedágio de 100% (art. 20): tempo adicional equivalente ao faltante
+□ Por pontos (art. 15): soma de idade + tempo de contribuição (tabela progressiva)
+□ Por idade progressiva (art. 18): Homem 65 anos / Mulher 62 anos + 15/20 anos de contribuição
+
+Tempo comprovado: [ANOS] anos, [MESES] meses e [DIAS] dias
+Pontuação atingida (se aplicável): [PONTOS]
+
+III – DOS PEDIDOS
+
+a) Concessão da aposentadoria pela regra de transição aplicável;
+b) DIP: data do requerimento administrativo;
+c) Parcelas em atraso com correção e juros;
+d) Honorários.
+
+Valor da causa: R$ [VALOR]
+
+[CIDADE], [DATA]
+[ADVOGADO] — OAB/__ nº ___
+
+⚠️ FUNDAMENTAL: Identifique com precisão a regra de transição aplicável ao caso concreto antes de ajuizar.`
+  },
+  'pensao-morte': {
+    titulo: 'Pedido de Pensão por Morte',
+    conteudo: `AO JUÍZO DA ___ VARA FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE ________ - SEÇÃO JUDICIÁRIA DE ________
+
+[NOME DO ADVOGADO], OAB/__ nº ___, em nome de [NOME DO(A) DEPENDENTE], propõe
+
+AÇÃO DE CONCESSÃO DE PENSÃO POR MORTE
+em face do INSTITUTO NACIONAL DO SEGURO SOCIAL – INSS
+
+I – DOS FATOS
+
+[NOME DO SEGURADO FALECIDO], [qualificação], faleceu em [DATA], na condição de segurado(a) do RGPS, conforme certidão de óbito anexa.
+
+O(A) requerente é [CÔNJUGE/FILHO(A)/DEPENDENTE] do(a) falecido(a), conforme documentos comprobatórios.
+
+Requereu o benefício em [DATA], sendo indeferido pelo INSS sob o argumento de [MOTIVO].
+
+II – DO DIREITO
+
+Nos termos do art. 74 da Lei 8.213/91 (redação dada pela Lei 13.135/2015), a pensão por morte é devida ao conjunto dos dependentes do segurado falecido.
+
+Dependentes preferenciais (1ª classe — art. 16, I):
+- Cônjuge, companheiro(a) e filho(a) não emancipado menor de 21 anos ou inválido
+
+QUESTÕES RELEVANTES:
+- Qualidade de segurado na data do óbito (art. 15 da Lei 8.213/91)
+- [Se período de graça: verificar hipótese aplicável]
+- Dependência econômica presumida para dependentes de 1ª classe
+
+DURAÇÃO DO BENEFÍCIO (art. 77, §2º — Lei 13.135/2015):
+□ Cônjuge/companheiro: 4 meses se < 2 anos de casamento; ou duração conforme tabela etária
+□ Filho: até 21 anos (ou invalidez)
+
+III – DOS PEDIDOS
+
+a) Concessão da pensão por morte desde a data do óbito (art. 74, I — se requerido até 90 dias);
+b) Pagamento das parcelas em atraso;
+c) Honorários advocatícios.
+
+Valor da causa: R$ [VALOR]
+
+[CIDADE], [DATA]
+[ADVOGADO] — OAB/__ nº ___
+
+⚠️ Atenção: Verifique a data do óbito e o prazo do requerimento para definir a DIP correta.`
+  },
+  'bpc-loas': {
+    titulo: 'Pedido de BPC/LOAS',
+    conteudo: `AO JUÍZO DA ___ VARA FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE ________ - SEÇÃO JUDICIÁRIA DE ________
+
+[NOME DO ADVOGADO], OAB/__ nº ___, em nome de [NOME DO REQUERENTE], propõe
+
+AÇÃO DE CONCESSÃO DO BENEFÍCIO DE PRESTAÇÃO CONTINUADA – BPC/LOAS
+em face do INSTITUTO NACIONAL DO SEGURO SOCIAL – INSS
+
+I – DOS FATOS
+
+O(A) requerente é [PESSOA COM DEFICIÊNCIA / IDOSO COM 65 ANOS OU MAIS], não possui meios de prover a própria manutenção nem tê-la provida por sua família.
+
+Requereu o BPC em [DATA], tendo o INSS indeferido por [MOTIVO].
+
+II – DO DIREITO
+
+O art. 203, V da CF/88 e o art. 20 da Lei 8.742/93 (LOAS) asseguram o BPC ao idoso com 65 anos ou mais, e à pessoa com deficiência que comprove:
+
+(i) DEFICIÊNCIA: impedimento de longo prazo de natureza física, mental, intelectual ou sensorial que, em interação com barreiras, obstrua a participação plena e efetiva na sociedade (art. 20, §2º da LOAS);
+
+(ii) MISERABILIDADE: renda familiar per capita inferior a 1/4 do salário mínimo.
+
+SOBRE A RENDA (STJ — Tema 185 e jurisprudência consolidada):
+O critério objetivo de 1/4 do SM não é absoluto. O juiz pode utilizar outros meios de prova para demonstrar a situação de miserabilidade. Verificar a composição do grupo familiar para cálculo correto.
+
+SOBRE A DEFICIÊNCIA:
+Laudo médico e laudos sociais fundamentam o pedido. A perícia judicial é determinante.
+
+III – DOS PEDIDOS
+
+a) Concessão do BPC/LOAS desde a data do requerimento administrativo;
+b) Pagamento das parcelas em atraso;
+c) Honorários advocatícios.
+
+Valor da causa: R$ [VALOR]
+
+[CIDADE], [DATA]
+[ADVOGADO] — OAB/__ nº ___
+
+⚠️ Atenção: O BPC não gera direito à pensão por morte e não é acumulável com outro benefício previdenciário. Verifique o Decreto 6.214/2007.`
+  },
+  'recurso-ordinario': {
+    titulo: 'Recurso Ordinário ao CRPS',
+    conteudo: `CONSELHO DE RECURSOS DA PREVIDÊNCIA SOCIAL
+[JUNTA/CÂMARA COMPETENTE]
+
+RECURSO ORDINÁRIO
+
+Recorrente: [NOME DO SEGURADO]
+CPF: [CPF]
+Benefício requerido: [TIPO DE BENEFÍCIO]
+NB: [NÚMERO DO BENEFÍCIO / REQUERIMENTO]
+Advogado: [NOME], OAB/__ nº ___
+
+COLENDA JUNTA/CÂMARA,
+
+O(A) recorrente, inconformado(a) com a decisão que [DESCREVER A DECISÃO — indeferiu / cessou / reduziu], interpõe o presente RECURSO ORDINÁRIO com fundamento no art. 303 do Decreto 3.048/99 e na Portaria MPS nº 125/2026, pelos fatos e fundamentos a seguir:
+
+I – TEMPESTIVIDADE
+
+O recurso é tempestivo, interposto no prazo de 30 (trinta) dias da ciência da decisão recorrida (art. 305 do Decreto 3.048/99).
+
+II – DOS FATOS
+
+[NARRAR OS FATOS DE FORMA OBJETIVA]
+
+III – DOS FUNDAMENTOS DO RECURSO
+
+A decisão merece reforma pelos seguintes fundamentos:
+
+3.1. [PRIMEIRO ARGUMENTO — BASE LEGAL]
+Nos termos do art. ___ da Lei 8.213/91 / Decreto 3.048/99 / IN 128/2022, [DESENVOLVER O ARGUMENTO].
+
+3.2. [SEGUNDO ARGUMENTO — SE HOUVER]
+
+3.3. DOS DOCUMENTOS NOVOS (se aplicável)
+Juntam-se documentos que demonstram [O QUÊ], os quais devem ser considerados nos termos do art. ___ do Regimento Interno do CRPS.
+
+IV – DO PEDIDO
+
+Diante do exposto, requer:
+a) O conhecimento e provimento do presente recurso;
+b) A reforma da decisão recorrida para [CONCESSÃO / RESTABELECIMENTO / REVISÃO] do benefício;
+c) A data de início do benefício em [DATA].
+
+[CIDADE], [DATA]
+
+[NOME DO ADVOGADO]
+OAB/__ nº ___
+
+Documentos anexos: [LISTAR]
+
+⚠️ Referência: Portaria MPS nº 125, de 26/01/2026 (Regimento Interno CRPS vigente). Verifique os prazos e requisitos atualizados.`
+  }
+};
+
+function abrirPeca(id) {
+  const peca = pecas[id];
+  if (!peca) return;
+  document.getElementById('modal-peca-titulo').textContent = peca.titulo;
+  document.getElementById('modal-peca-conteudo').textContent = peca.conteudo;
+  document.getElementById('modal-peca').classList.add('visivel');
+}
+
+function fecharModal() {
+  document.getElementById('modal-peca').classList.remove('visivel');
+}
+
+function copiarPeca() {
+  const conteudo = document.getElementById('modal-peca-conteudo').textContent;
+  navigator.clipboard.writeText(conteudo).then(() => {
+    alert('Modelo copiado para a área de transferência!');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = conteudo;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Modelo copiado!');
+  });
+}
+
+// ===== QUALIDADE DE SEGURADO =====
+function atualizarQS() {
+  const cat = document.getElementById('qs-categoria').value;
+  const mostrarProrrogacao = cat === 'II';
+  document.getElementById('qs-card-prorrogacao').style.display = mostrarProrrogacao ? 'block' : 'none';
+  const labels = {
+    'II': 'Data da última contribuição',
+    'VI': 'Data da última contribuição',
+    'V': 'Data do licenciamento das Forças Armadas',
+    'III': 'Data de cessação da segregação',
+    'IV': 'Data do livramento'
+  };
+  document.getElementById('qs-label-data').textContent = labels[cat] || 'Data de referência';
+}
+
+function calcularQualidade() {
+  const cat = document.getElementById('qs-categoria').value;
+  const dataStr = document.getElementById('qs-data').value;
+  const verificarStr = document.getElementById('qs-verificar').value;
+
+  if (!dataStr) { alert('Informe a data de referência.'); return; }
+
+  const dataRef = new Date(dataStr + 'T00:00:00');
+
+  // Define prazo base conforme inciso
+  const prazos = { 'II': 12, 'III': 12, 'IV': 12, 'V': 3, 'VI': 6 };
+  let prazo = prazos[cat] || 12;
+
+  // §1º: prorrogação para 24 meses se +120 contribuições (só inciso II)
+  if (cat === 'II' && document.getElementById('qs-120contrib').checked) prazo = 24;
+
+  // §2º: acréscimo de 12 meses se desempregado (só inciso II)
+  if (cat === 'II' && document.getElementById('qs-desempregado').checked) prazo += 12;
+
+  // Fim do prazo de graça
+  const fimPrazo = new Date(dataRef);
+  fimPrazo.setMonth(fimPrazo.getMonth() + prazo);
+
+  // §4º: mês imediatamente posterior ao fim do prazo
+  const mesPosFim = new Date(fimPrazo);
+  mesPosFim.setMonth(mesPosFim.getMonth() + 1);
+
+  // Vencimento: dia 15 do mês seguinte ao mesPosFim
+  const vencimento = new Date(mesPosFim.getFullYear(), mesPosFim.getMonth() + 1, 15);
+
+  // Perda: dia 16
+  const perda = new Date(vencimento);
+  perda.setDate(16);
+
+  const fmt = d => d.toLocaleDateString('pt-BR');
+  const prazoLabel = prazo + ' meses' + (cat === 'II' && document.getElementById('qs-120contrib').checked ? ' (prorrogado §1º)' : '') + (cat === 'II' && document.getElementById('qs-desempregado').checked ? ' + 12 meses desemprego (§2º)' : '');
+
+  document.getElementById('res-qs-prazo').textContent = prazoLabel;
+  document.getElementById('res-qs-fim-prazo').textContent = fmt(fimPrazo);
+  document.getElementById('res-qs-vencimento').textContent = fmt(vencimento);
+  document.getElementById('res-qs-perda').textContent = fmt(perda);
+
+  // Verificação em data específica
+  if (verificarStr) {
+    const dataVerif = new Date(verificarStr + 'T00:00:00');
+    const temQualidade = dataVerif < perda;
+    document.getElementById('res-qs-status-row').style.display = 'flex';
+    document.getElementById('res-qs-status-label').textContent = 'Qualidade em ' + fmt(dataVerif);
+    const statusEl = document.getElementById('res-qs-status');
+    if (temQualidade) {
+      statusEl.textContent = '✅ COM QUALIDADE';
+      statusEl.style.color = '#5BDF5B';
+    } else {
+      statusEl.textContent = '❌ SEM QUALIDADE';
+      statusEl.style.color = '#FF6B6B';
+    }
+  } else {
+    document.getElementById('res-qs-status-row').style.display = 'none';
+  }
+
+  document.getElementById('res-qualidade').classList.add('visivel');
+}
+
+// ===== NOTÍCIAS VIA RSS =====
+const FEEDS = [
+  { nome: 'STJ Notícias', url: '' },
+  { nome: 'Conjur Previdência', url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.conjur.com.br/rss.xml' },
+  { nome: 'JusBrasil Previdenciário', url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.jusbrasil.com.br/noticias/rss' }
+];
+
+async function carregarNoticias() {
+  const container = document.getElementById('feed-noticias');
+
+  try {
+    const promessas = FEEDS.map(f =>
+      fetch(f.url)
+        .then(r => r.json())
+        .then(data => ({ fonte: f.nome, items: data.items || [] }))
+        .catch(() => ({ fonte: f.nome, items: [] }))
+    );
+
+    const resultados = await Promise.all(promessas);
+    let html = '';
+    let totalItens = 0;
+
+    resultados.forEach(res => {
+      const itens = res.items.slice(0, 4);
+      if (itens.length === 0) return;
+      itens.forEach(item => {
+        totalItens++;
+        const data = item.pubDate ? new Date(item.pubDate).toLocaleDateString('pt-BR') : '';
+        const titulo = item.title || 'Sem título';
+        const link = item.link || '#';
+        // Filtra por palavras-chave previdenciárias (opcional — mostra tudo do STJ)
+        html += `
+          <a class="noticia-item" href="${link}" target="_blank" rel="noopener">
+            <div class="noticia-fonte">${res.fonte}</div>
+            <div class="noticia-titulo">${titulo}</div>
+            <div class="noticia-data">${data}</div>
+          </a>
+        `;
+      });
+    });
+
+    if (totalItens === 0) {
+      container.innerHTML = `
+        <div class="card">
+          <div class="card-titulo">Fontes Oficiais</div>
+          <div class="card-desc">Acesse diretamente as notícias previdenciárias nas fontes oficiais:</div>
+          <a href="https://www.stj.jus.br/sites/portalp/Noticias" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">STJ — Notícias</a>
+          <a href="https://www.conjur.com.br/direito-previdenciario/" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">Conjur Previdenciário</a>
+          <a href="https://www.jusbrasil.com.br/artigos/direito-previdenciario" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center;">JusBrasil</a>
+        </div>
+      `;
+    } else {
+      container.innerHTML = html;
+    }
+  } catch (e) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-titulo">Acesse as Fontes</div>
+        <div class="card-desc">Notícias previdenciárias nas fontes mais atualizadas:</div>
+        <a href="https://www.stj.jus.br/sites/portalp/Noticias" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">STJ — Notícias</a>
+        <a href="https://www.conjur.com.br/direito-previdenciario/" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">Conjur Previdenciário</a>
+        <a href="https://www.jusbrasil.com.br/artigos/direito-previdenciario" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center;">JusBrasil</a>
+      </div>
+    `;
+  }
+}
+</script>
+
+</body>
+</html>
