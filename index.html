@@ -817,6 +817,18 @@
     <div class="section-titulo">Modelos de Peças</div>
     <div class="section-desc">Modelos base para adaptar ao seu caso. Sempre consulte legislação e jurisprudência vigentes.</div>
 
+    <div class="card" style="border-left: 3px solid var(--ouro); text-align:center; padding: 32px 20px; margin-bottom: 16px;">
+      <div style="font-size: 48px; margin-bottom: 16px;">📁</div>
+      <div class="card-titulo" style="font-size:22px; margin-bottom:8px;">Modelos de Peças</div>
+      <div class="card-desc" style="margin-bottom:24px;">Acesse a biblioteca completa de modelos de peças previdenciárias. Curadoria do Prof. Carlos Gouveia.</div>
+      <a href="https://drive.google.com/drive/folders/1jXDbYWghbYCW7JURm8N-HS9cLhryCPxv?usp=sharing" target="_blank" class="btn" style="display:block; text-decoration:none; text-align:center;">
+        📂 ABRIR MODELOS DE PEÇAS
+      </a>
+    </div>
+
+    <button class="btn-outline" onclick="toggleOutros()" style="margin-bottom:16px;">📄 Outros Modelos</button>
+
+    <div id="outros-modelos" style="display:none;">
     <div class="peca-categoria">Benefícios por Incapacidade</div>
     <div class="peca-item" onclick="abrirPeca('auxilio-incapacidade')">
       <div class="peca-item-titulo">Pedido de Auxílio por Incapacidade Temporária</div>
@@ -875,6 +887,7 @@
       </div>
     </div>
   </div>
+    </div>
 
   <!-- TELA: QUALIDADE DE SEGURADO -->
   <div class="tela" id="tela-qualidade">
@@ -1627,6 +1640,11 @@ function copiarPeca() {
 }
 
 // ===== QUALIDADE DE SEGURADO =====
+function toggleOutros() {
+  const div = document.getElementById('outros-modelos');
+  div.style.display = div.style.display === 'none' ? 'block' : 'none';
+}
+
 function atualizarQS() {
   const cat = document.getElementById('qs-categoria').value;
   const mostrarProrrogacao = cat === 'II';
