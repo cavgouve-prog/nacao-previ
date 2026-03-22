@@ -900,7 +900,6 @@
       </div>
     </div>
   </div>
-    </div>
 
   <!-- TELA: QUALIDADE DE SEGURADO -->
   <div class="tela" id="tela-qualidade">
@@ -1136,7 +1135,6 @@ function entrarNoApp(nome) {
   document.getElementById('nav-bottom').style.display = 'flex';
   const primeiroNome = nome.split(' ')[0];
   document.getElementById('header-nome').textContent = primeiroNome;
-  carregarNoticias();
 }
 
 // Verifica se já tem acesso
@@ -2080,65 +2078,6 @@ const FEEDS = [
   { nome: 'JusBrasil Previdenciário', url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.jusbrasil.com.br/noticias/rss' }
 ];
 
-async function carregarNoticias() {
-  const container = document.getElementById('feed-noticias');
-
-  try {
-    const promessas = FEEDS.map(f =>
-      fetch(f.url)
-        .then(r => r.json())
-        .then(data => ({ fonte: f.nome, items: data.items || [] }))
-        .catch(() => ({ fonte: f.nome, items: [] }))
-    );
-
-    const resultados = await Promise.all(promessas);
-    let html = '';
-    let totalItens = 0;
-
-    resultados.forEach(res => {
-      const itens = res.items.slice(0, 4);
-      if (itens.length === 0) return;
-      itens.forEach(item => {
-        totalItens++;
-        const data = item.pubDate ? new Date(item.pubDate).toLocaleDateString('pt-BR') : '';
-        const titulo = item.title || 'Sem título';
-        const link = item.link || '#';
-        // Filtra por palavras-chave previdenciárias (opcional — mostra tudo do STJ)
-        html += `
-          <a class="noticia-item" href="${link}" target="_blank" rel="noopener">
-            <div class="noticia-fonte">${res.fonte}</div>
-            <div class="noticia-titulo">${titulo}</div>
-            <div class="noticia-data">${data}</div>
-          </a>
-        `;
-      });
-    });
-
-    if (totalItens === 0) {
-      container.innerHTML = `
-        <div class="card">
-          <div class="card-titulo">Fontes Oficiais</div>
-          <div class="card-desc">Acesse diretamente as notícias previdenciárias nas fontes oficiais:</div>
-          <a href="https://www.stj.jus.br/sites/portalp/Noticias" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">STJ — Notícias</a>
-          <a href="https://www.conjur.com.br/direito-previdenciario/" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">Conjur Previdenciário</a>
-          <a href="https://www.jusbrasil.com.br/artigos/direito-previdenciario" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center;">JusBrasil</a>
-        </div>
-      `;
-    } else {
-      container.innerHTML = html;
-    }
-  } catch (e) {
-    container.innerHTML = `
-      <div class="card">
-        <div class="card-titulo">Acesse as Fontes</div>
-        <div class="card-desc">Notícias previdenciárias nas fontes mais atualizadas:</div>
-        <a href="https://www.stj.jus.br/sites/portalp/Noticias" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">STJ — Notícias</a>
-        <a href="https://www.conjur.com.br/direito-previdenciario/" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center; margin-bottom:8px;">Conjur Previdenciário</a>
-        <a href="https://www.jusbrasil.com.br/artigos/direito-previdenciario" target="_blank" class="btn-outline" style="display:block; text-decoration:none; text-align:center;">JusBrasil</a>
-      </div>
-    `;
-  }
-}
 </script>
 
 </body>
