@@ -646,6 +646,16 @@
       <div class="card-desc">Calcule a data de perda da qualidade de segurado conforme art. 15 da Lei 8.213/91.</div>
     </div>
 
+    <div class="card" onclick="irPara('transicao')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">📋 Regras de Transição EC 103</div>
+      <div class="card-desc">Verifique todas as regras de transição da Reforma da Previdência para o seu cliente.</div>
+    </div>
+
+    <div class="card" onclick="irPara('tabelas')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">📊 Tabelas Históricas</div>
+      <div class="card-desc">Salário mínimo e teto do INSS por ano desde 2000.</div>
+    </div>
+
     <div class="linha-ouro"></div>
 
     <a class="bonus-card" href="https://www.ajuridica.com.br" target="_blank" style="margin-bottom:12px;">
@@ -960,6 +970,79 @@
     </div>
   </div>
 
+  <!-- TELA: REGRAS DE TRANSIÇÃO EC 103 -->
+  <div class="tela" id="tela-transicao">
+    <div class="tag-ouro">EC 103/2019</div>
+    <div class="section-titulo">Regras de Transição</div>
+    <div class="section-desc">Informe os dados do segurado para verificar todas as regras de transição da Reforma da Previdência.</div>
+
+    <div class="card">
+      <div class="card-titulo">Dados do Segurado</div>
+
+      <label class="label">Categoria</label>
+      <select class="select" id="ec-categoria">
+        <option value="geral">Trabalhador em geral</option>
+        <option value="professor">Professor(a)</option>
+      </select>
+
+      <label class="label">Sexo</label>
+      <select class="select" id="ec-sexo">
+        <option value="H">Masculino</option>
+        <option value="M">Feminino</option>
+      </select>
+
+      <label class="label">Idade atual</label>
+      <div class="row-2">
+        <div><label class="label">Anos</label><input type="number" class="input" id="ec-idade-a" placeholder="0" min="0" max="99" value="0"></div>
+        <div><label class="label">Meses</label><input type="number" class="input" id="ec-idade-m" placeholder="0" min="0" max="11" value="0"></div>
+      </div>
+
+      <label class="label">Tempo de contribuição atual</label>
+      <div class="row-2">
+        <div><label class="label">Anos</label><input type="number" class="input" id="ec-tc-a" placeholder="0" min="0" max="50" value="0"></div>
+        <div><label class="label">Meses</label><input type="number" class="input" id="ec-tc-m" placeholder="0" min="0" max="11" value="0"></div>
+      </div>
+      <label class="label">Dias</label>
+      <input type="number" class="input" id="ec-tc-d" placeholder="0" min="0" max="30" value="0">
+
+      <label class="label">Tempo de contribuição em 13/11/2019</label>
+      <div class="row-2">
+        <div><label class="label">Anos</label><input type="number" class="input" id="ec-tc2019-a" placeholder="0" min="0" max="50" value="0"></div>
+        <div><label class="label">Meses</label><input type="number" class="input" id="ec-tc2019-m" placeholder="0" min="0" max="11" value="0"></div>
+      </div>
+      <label class="label">Dias</label>
+      <input type="number" class="input" id="ec-tc2019-d" placeholder="0" min="0" max="30" value="0">
+
+      <div class="card-desc" style="margin-bottom:0; font-size:11px;">✅ Atingiu &nbsp; ⏳ Falta &nbsp; ❌ Não elegível</div>
+    </div>
+
+    <button class="btn" onclick="calcularTransicao()">VERIFICAR REGRAS</button>
+
+    <div class="resultado-box" id="res-transicao">
+      <div id="res-ec-blocos"></div>
+    </div>
+  </div>
+
+    <!-- TELA: TABELAS HISTÓRICAS -->
+  <div class="tela" id="tela-tabelas">
+    <div class="tag-ouro">Consulta Rápida</div>
+    <div class="section-titulo">Tabelas Históricas</div>
+    <div class="section-desc">Salário mínimo e teto do INSS por ano.</div>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead>
+          <tr style="background:rgba(197,176,97,0.15);">
+            <th style="padding:10px 14px; text-align:left; color:var(--ouro); font-weight:600;">Ano</th>
+            <th style="padding:10px 14px; text-align:right; color:var(--ouro); font-weight:600;">Salário Mínimo</th>
+            <th style="padding:10px 14px; text-align:right; color:var(--ouro); font-weight:600;">Teto INSS</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-historica"></tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 <!-- NAVIGATION BOTTOM -->
@@ -987,6 +1070,14 @@
   <button class="nav-item" onclick="irPara('qualidade')" id="nav-qualidade">
     <span class="nav-icone">🛡️</span>
     <span>Qualidade</span>
+  </button>
+  <button class="nav-item" onclick="irPara('transicao')" id="nav-transicao">
+    <span class="nav-icone">📋</span>
+    <span>EC 103</span>
+  </button>
+  <button class="nav-item" onclick="irPara('tabelas')" id="nav-tabelas">
+    <span class="nav-icone">📊</span>
+    <span>Tabelas</span>
   </button>
 </div>
 
@@ -1643,6 +1734,263 @@ function copiarPeca() {
 }
 
 // ===== QUALIDADE DE SEGURADO =====
+// ===== REGRAS DE TRANSIÇÃO EC 103/2019 =====
+
+// Tabela de pontos — trabalhador geral (homem/mulher) e professor
+// Tabela de pontos — trabalhador geral
+// H: começa 96 em 2019, +1/ano, teto 105 em 2028
+// M: começa 86 em 2019, +1/ano, teto 100 em 2033
+const PONTOS_GERAL = {
+  2019:{H:96,M:86}, 2020:{H:97,M:87}, 2021:{H:98,M:88}, 2022:{H:99,M:89},
+  2023:{H:100,M:90}, 2024:{H:101,M:91}, 2025:{H:102,M:92}, 2026:{H:103,M:93},
+  2027:{H:104,M:94}, 2028:{H:105,M:95}, 2029:{H:105,M:96}, 2030:{H:105,M:97},
+  2031:{H:105,M:98}, 2032:{H:105,M:99}, 2033:{H:105,M:100}
+};
+
+// Tabela de pontos — professor
+// H: começa 91 em 2019, +1/ano, teto 100 em 2028
+// M: começa 81 em 2019, +1/ano, teto 92 em 2030 (confirmar)
+const PONTOS_PROF = {
+  2019:{H:91,M:81}, 2020:{H:92,M:82}, 2021:{H:93,M:83}, 2022:{H:94,M:84},
+  2023:{H:95,M:85}, 2024:{H:96,M:86}, 2025:{H:97,M:87}, 2026:{H:98,M:88},
+  2027:{H:99,M:89}, 2028:{H:100,M:90}, 2029:{H:100,M:91}, 2030:{H:100,M:92}
+};
+
+// Idade mínima progressiva por ano
+// GERAL: H começa 61 em 2019, +0.5/ano, teto 65 em 2027
+//        M começa 56 em 2019, +0.5/ano, teto 62 em 2031
+// PROF:  H começa 56 em 2019, +0.5/ano, teto 60 em 2027
+//        M começa 51 em 2019, +0.5/ano, teto 57 em 2031
+// Fonte: site Tramitação Inteligente (H 2024=58.5, M 2024=53.5 para prof)
+function idadeMinProgressiva(ano, sexo, professor) {
+  if (professor) {
+    const base = sexo === 'H' ? 56 : 51;
+    const teto = sexo === 'H' ? 60 : 57;
+    const anosApos = Math.max(0, ano - 2019);
+    return Math.min(base + anosApos * 0.5, teto);
+  } else {
+    const base = sexo === 'H' ? 61 : 56;
+    const teto = sexo === 'H' ? 65 : 62;
+    const anosApos = Math.max(0, ano - 2019);
+    return Math.min(base + anosApos * 0.5, teto);
+  }
+}
+
+function tcParaDecimal(a, m, d) {
+  return (parseInt(a)||0) + (parseInt(m)||0)/12 + (parseInt(d)||0)/365;
+}
+
+function decimalParaFmt(v) {
+  if (v <= 0) return '0';
+  const anos = Math.floor(v);
+  const meses = Math.floor((v - anos) * 12);
+  const dias = Math.round(((v - anos) * 12 - meses) * 30);
+  let s = '';
+  if (anos > 0) s += anos + 'a ';
+  if (meses > 0) s += meses + 'm ';
+  if (dias > 0) s += dias + 'd';
+  return s.trim() || '0';
+}
+
+function bloco(titulo, status, detalhe, falta) {
+  const cor = status === 'ok' ? '#5BDF5B' : status === 'em' ? 'var(--ouro)' : '#FF6B6B';
+  const icone = status === 'ok' ? '✅' : status === 'em' ? '⏳' : '❌';
+  return `
+    <div style="border-bottom:1px solid var(--preto-borda); padding:10px 0;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; color:var(--branco); font-weight:500;">${titulo}</span>
+        <span style="font-size:13px; color:${cor}; font-weight:600;">${icone} ${falta || (status==='ok'?'Atingiu':'N/A')}</span>
+      </div>
+      <div style="font-size:11px; color:var(--cinza);">${detalhe}</div>
+    </div>`;
+}
+
+function calcularTransicao() {
+  const cat = document.getElementById('ec-categoria').value;
+  const sexo = document.getElementById('ec-sexo').value;
+  const prof = cat === 'professor';
+
+  const idadeAtual = tcParaDecimal(
+    document.getElementById('ec-idade-a').value,
+    document.getElementById('ec-idade-m').value, 0
+  );
+  const tcAtual = tcParaDecimal(
+    document.getElementById('ec-tc-a').value,
+    document.getElementById('ec-tc-m').value,
+    document.getElementById('ec-tc-d').value
+  );
+  const tc2019 = tcParaDecimal(
+    document.getElementById('ec-tc2019-a').value,
+    document.getElementById('ec-tc2019-m').value,
+    document.getElementById('ec-tc2019-d').value
+  );
+
+  if (idadeAtual <= 0 || tcAtual <= 0) {
+    alert('Informe a idade e o tempo de contribuição.');
+    return;
+  }
+
+  const anoAtual = new Date().getFullYear();
+  const tabelaPontos = prof ? PONTOS_PROF : PONTOS_GERAL;
+  const tcMin = prof ? (sexo === 'H' ? 30 : 25) : (sexo === 'H' ? 35 : 30);
+  let html = '';
+
+  // 1. REGRA DE PONTOS
+  const pontosAtual = idadeAtual + tcAtual;
+  const pontosNec = tabelaPontos[anoAtual]?.[sexo] || tabelaPontos[2032][sexo];
+  const faltaPontos = Math.max(0, pontosNec - pontosAtual);
+  const faltaTC = Math.max(0, tcMin - tcAtual);
+  if (pontosAtual >= pontosNec && tcAtual >= tcMin) {
+    html += bloco('Regra de Pontos (art. 15)', 'ok',
+      `${pontosAtual.toFixed(1)} pts ≥ ${pontosNec} | TC ${decimalParaFmt(tcAtual)} ≥ ${tcMin}a`, '');
+  } else {
+    const det = faltaPontos > 0 ? `Faltam ${faltaPontos.toFixed(1)} pts (${pontosAtual.toFixed(1)} de ${pontosNec})` : '';
+    const detTC = faltaTC > 0 ? ` | TC falta ${decimalParaFmt(faltaTC)}` : '';
+    html += bloco('Regra de Pontos (art. 15)', 'em',
+      `Pontos necessários em ${anoAtual}: ${pontosNec} | TC mínimo: ${tcMin}a`,
+      det + detTC);
+  }
+
+  // 2. IDADE MÍNIMA PROGRESSIVA
+  const idadeMinProg = idadeMinProgressiva(anoAtual, sexo, prof);
+  const faltaIdadeProg = Math.max(0, idadeMinProg - idadeAtual);
+  const faltaTCProg = Math.max(0, tcMin - tcAtual);
+  if (idadeAtual >= idadeMinProg && tcAtual >= tcMin) {
+    html += bloco('Idade Mínima Progressiva (art. 16)', 'ok',
+      `Idade ${decimalParaFmt(idadeAtual)} ≥ ${idadeMinProg}a | TC ${decimalParaFmt(tcAtual)} ≥ ${tcMin}a`, '');
+  } else {
+    const det = faltaIdadeProg > 0 ? `Faltam ${decimalParaFmt(faltaIdadeProg)} de idade` : '';
+    const detTC = faltaTCProg > 0 ? ` | TC falta ${decimalParaFmt(faltaTCProg)}` : '';
+    html += bloco('Idade Mínima Progressiva (art. 16)', 'em',
+      `Idade mínima em ${anoAtual}: ${idadeMinProg}a | TC mínimo: ${tcMin}a`, det + detTC);
+  }
+
+  // 3. PEDÁGIO 50% (art. 17) — sem requisito etário
+  if (tc2019 > 0) {
+    const faltava2019 = Math.max(0, tcMin - tc2019);
+    if (faltava2019 <= 0) {
+      html += bloco('Pedágio 50% (art. 17)', 'nao',
+        `Já tinha ${tcMin}a em 13/11/2019 — não elegível`, '');
+    } else if (faltava2019 > 2) {
+      html += bloco('Pedágio 50% (art. 17)', 'nao',
+        `Faltavam mais de 2 anos em 2019 (${decimalParaFmt(faltava2019)}) — exclusivo para quem faltava menos de 2 anos`, '');
+    } else {
+      const pedagio = faltava2019 * 0.5;
+      const totalNec = tcMin + pedagio;
+      const falta50 = Math.max(0, totalNec - tcAtual);
+      if (falta50 <= 0) {
+        html += bloco('Pedágio 50% (art. 17)', 'ok',
+          `TC ${decimalParaFmt(tcAtual)} ≥ ${decimalParaFmt(totalNec)} (${tcMin}a + pedágio ${decimalParaFmt(pedagio)})`, '');
+      } else {
+        html += bloco('Pedágio 50% (art. 17)', 'em',
+          `Total necessário: ${decimalParaFmt(totalNec)} (${tcMin}a + pedágio ${decimalParaFmt(pedagio)})`,
+          `Faltam ${decimalParaFmt(falta50)}`);
+      }
+    }
+  } else {
+    html += bloco('Pedágio 50% (art. 17)', 'nao', 'Informe o TC em 13/11/2019', '');
+  }
+
+  // 4. PEDÁGIO 100% (art. 20)
+  // Geral: H = 60 anos + 35a TC + dobro do que faltava para 35a em 13/11/2019
+  //        M = 57 anos + 30a TC + dobro do que faltava para 30a em 13/11/2019
+  // Prof (§1º -5 anos): H = 55 anos + 30a TC + dobro do faltava para 30a em 2019
+  //                     M = 52 anos + 25a TC + dobro do faltava para 25a em 2019
+  if (tc2019 > 0) {
+    const idadeMin100 = prof ? (sexo === 'H' ? 55 : 52) : (sexo === 'H' ? 60 : 57);
+    const faltava2019_100 = Math.max(0, tcMin - tc2019);
+    // Total TC necessário = TC mínimo + período adicional (100% do que faltava)
+    const totalNec100 = tcMin + faltava2019_100;
+    const falta100TC = Math.max(0, totalNec100 - tcAtual);
+    const falta100Id = Math.max(0, idadeMin100 - idadeAtual);
+    if (faltava2019_100 <= 0) {
+      html += bloco('Pedágio 100% (art. 20)', 'nao',
+        `Já tinha ${tcMin}a em 13/11/2019 — não elegível para este pedágio`, '');
+    } else if (falta100TC <= 0 && falta100Id <= 0) {
+      html += bloco('Pedágio 100% (art. 20)', 'ok',
+        `TC ${decimalParaFmt(tcAtual)} ≥ ${decimalParaFmt(totalNec100)} | Idade ${decimalParaFmt(idadeAtual)} ≥ ${idadeMin100}a`, '');
+    } else {
+      const det = [];
+      if (falta100TC > 0) det.push(`TC falta ${decimalParaFmt(falta100TC)}`);
+      if (falta100Id > 0) det.push(`Idade falta ${decimalParaFmt(falta100Id)}`);
+      html += bloco('Pedágio 100% (art. 20)', 'em',
+        `TC mín: ${decimalParaFmt(tcMin)} + período adicional: ${decimalParaFmt(faltava2019_100)} = Total: ${decimalParaFmt(totalNec100)} | Idade mín: ${idadeMin100}a`,
+        det.join(' | '));
+    }
+  } else {
+    html += bloco('Pedágio 100% (art. 20)', 'nao', 'Informe o TC em 13/11/2019', '');
+  }
+
+  // 5. APOSENTADORIA POR IDADE — Regra de Transição (art. 18) e Permanente (art. 19)
+  // Transição: H=65 + 15a TC | M=60 + 15a TC (teto alcançado em 2023)
+  // Professor permanente: H=60 + 20a TC | M=57 + 20a TC
+  const idadeMinIdade = prof ? (sexo === 'H' ? 60 : 57) : (sexo === 'H' ? 65 : 60);
+  const tcMinIdade = prof ? 20 : 15;
+  const faltaIdadeAp = Math.max(0, idadeMinIdade - idadeAtual);
+  const faltaTCAp = Math.max(0, tcMinIdade - tcAtual);
+  if (faltaIdadeAp <= 0 && faltaTCAp <= 0) {
+    html += bloco('Aposentadoria por Idade (art. 18/19)', 'ok',
+      `Idade ${decimalParaFmt(idadeAtual)} ≥ ${idadeMinIdade}a | TC ${decimalParaFmt(tcAtual)} ≥ ${tcMinIdade}a`, '');
+  } else {
+    const det = [];
+    if (faltaIdadeAp > 0) det.push(`Idade falta ${decimalParaFmt(faltaIdadeAp)}`);
+    if (faltaTCAp > 0) det.push(`TC falta ${decimalParaFmt(faltaTCAp)}`);
+    html += bloco('Aposentadoria por Idade (art. 18/19)', 'em',
+      `${idadeMinIdade}a de idade + ${tcMinIdade}a de TC`, det.join(' | '));
+  }
+
+  document.getElementById('res-ec-blocos').innerHTML = html;
+  document.getElementById('res-transicao').classList.add('visivel');
+}
+
+// ===== TABELAS HISTÓRICAS =====
+const TABELA_HISTORICA = [
+  { ano: 2026, sm: 1621, teto: 8475.55 },
+  { ano: 2025, sm: 1518, teto: 8157.41 },
+  { ano: 2024, sm: 1412, teto: 7786.02 },
+  { ano: 2023, sm: 1320, teto: 7507.49 },
+  { ano: 2022, sm: 1212, teto: 7087.22 },
+  { ano: 2021, sm: 1100, teto: 6433.57 },
+  { ano: 2020, sm: 1045, teto: 6101.06 },
+  { ano: 2019, sm: 998,  teto: 5839.45 },
+  { ano: 2018, sm: 954,  teto: 5645.80 },
+  { ano: 2017, sm: 937,  teto: 5531.31 },
+  { ano: 2016, sm: 880,  teto: 5189.82 },
+  { ano: 2015, sm: 788,  teto: 4663.75 },
+  { ano: 2014, sm: 724,  teto: 4390.24 },
+  { ano: 2013, sm: 678,  teto: 4159.00 },
+  { ano: 2012, sm: 622,  teto: 3916.20 },
+  { ano: 2011, sm: 545,  teto: 3691.74 },
+  { ano: 2010, sm: 510,  teto: 3467.40 },
+  { ano: 2009, sm: 465,  teto: 3218.90 },
+  { ano: 2008, sm: 415,  teto: 2894.28 },
+  { ano: 2007, sm: 380,  teto: 2801.82 },
+  { ano: 2006, sm: 350,  teto: 2801.82 },
+  { ano: 2005, sm: 300,  teto: 2668.15 },
+  { ano: 2004, sm: 260,  teto: 2508.72 },
+  { ano: 2003, sm: 240,  teto: 1869.34 },
+  { ano: 2002, sm: 200,  teto: 1561.56 },
+  { ano: 2001, sm: 180,  teto: 1430.43 },
+  { ano: 2000, sm: 151,  teto: 1328.25 },
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tbody = document.getElementById('tabela-historica');
+  if (!tbody) return;
+  const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2});
+  TABELA_HISTORICA.forEach((row, i) => {
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid var(--preto-borda)';
+    if (i % 2 === 0) tr.style.background = 'rgba(255,255,255,0.02)';
+    tr.innerHTML = `
+      <td style="padding:9px 14px; color:var(--branco);">${row.ano}</td>
+      <td style="padding:9px 14px; text-align:right; color:#5BDF5B;">${fmt(row.sm)}</td>
+      <td style="padding:9px 14px; text-align:right; color:var(--ouro);">${fmt(row.teto)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+});
+
 function toggleOutros() {
   const div = document.getElementById('outros-modelos');
   div.style.display = div.style.display === 'none' ? 'block' : 'none';
