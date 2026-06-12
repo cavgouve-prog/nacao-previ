@@ -1683,18 +1683,29 @@ const ENTRY_NOME = 'entry.2037506205';
 const ENTRY_EMAIL = 'entry.1911379718';
 const ENTRY_WHATS = 'entry.954849402';
 
+// Senha de acesso — altere aqui para controlar o acesso
+const SENHA_CPP = 'CPP0626';
+
 function acessarApp() {
   const nome = document.getElementById('cap-nome').value.trim();
   const email = document.getElementById('cap-email').value.trim();
   const whats = document.getElementById('cap-whats').value.trim();
+  const senha = document.getElementById('cap-senha') ? document.getElementById('cap-senha').value.trim() : '';
 
-  if (!nome || !email || !whats) {
+  if (!nome || !email || !whats || !senha) {
     alert('Preencha todos os campos para acessar.');
     return;
   }
 
   if (!email.includes('@')) {
     alert('Informe um e-mail válido.');
+    return;
+  }
+
+  if (senha !== SENHA_CPP) {
+    alert('Senha incorreta. Verifique a senha atual com o Nação Previ.');
+    document.getElementById('cap-senha').value = '';
+    document.getElementById('cap-senha').focus();
     return;
   }
 
