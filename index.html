@@ -41,15 +41,19 @@
     background: var(--preto);
     z-index: 1000;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 24px;
+    padding: 16px;
+    overflow-y: auto;
   }
 
   .captura-box {
     width: 100%;
     max-width: 420px;
     text-align: center;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 20px;
   }
 
   .captura-logo {
@@ -722,7 +726,7 @@
       <input type="email" id="cap-email" placeholder="Seu melhor e-mail" autocomplete="email">
       <input type="tel" id="cap-whats" placeholder="WhatsApp com DDD (ex: 11999999999)" autocomplete="tel">
       <input type="password" id="cap-senha" placeholder="Senha de acesso CPP" autocomplete="off">
-      <div style="background:#1A1A1A;border:1px solid #2A2A2A;border-radius:8px;padding:14px;margin-bottom:12px;text-align:left;max-height:180px;overflow-y:auto">
+      <div style="background:#1A1A1A;border:1px solid #2A2A2A;border-radius:8px;padding:12px;margin-bottom:10px;text-align:left;max-height:130px;overflow-y:auto">
         <div style="font-size:11px;font-weight:600;color:#E05555;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">⚠️ Aviso Importante</div>
         <div style="font-size:11px;color:#888;line-height:1.7">
           Esta ferramenta possui caráter exclusivamente <strong style="color:#ccc">experimental, educacional e de apoio à organização interna de demandas</strong>. É oferecida gratuitamente, em fase de testes, podendo conter falhas, indisponibilidades, inconsistências ou limitações operacionais.<br><br>
@@ -732,7 +736,7 @@
           A disponibilização poderá ser suspensa, alterada ou encerrada a qualquer momento, sem aviso prévio.
         </div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;text-align:left">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;text-align:left">
         <input type="checkbox" id="cap-termo" style="width:18px;height:18px;accent-color:var(--ouro);flex-shrink:0;margin-top:2px" onchange="toggleBtnAcessar()">
         <label for="cap-termo" style="font-size:12px;color:#aaa;line-height:1.5;cursor:pointer">
           Li e concordo que esta ferramenta possui caráter experimental, <strong style="color:#ccc">não substitui sistemas profissionais de gestão processual</strong> e que a responsabilidade pela conferência de informações e controle de prazos é exclusivamente minha.
@@ -1737,8 +1741,14 @@ const ENTRY_NOME = 'entry.2037506205';
 const ENTRY_EMAIL = 'entry.1911379718';
 const ENTRY_WHATS = 'entry.954849402';
 
-// Senha de acesso — altere aqui para controlar o acesso
+// ============================================================
+// CONTROLE DE ACESSO — altere AMBOS para forçar novo login de todos
+// Ao trocar a senha: mude SENHA_CPP e incremente APP_VERSAO (v1 -> v2 -> v3...)
+// Isso derruba todos os usuários logados imediatamente
+// ============================================================
 const SENHA_CPP = 'CPP0626';
+const APP_VERSAO = 'v1';
+// ============================================================
 
 function acessarApp() {
   const nome = document.getElementById('cap-nome').value.trim();
@@ -1774,6 +1784,7 @@ function acessarApp() {
   localStorage.setItem('np_whats', whats);
   localStorage.setItem('np_acesso', '1');
   localStorage.setItem('np_senha_ok', btoa(SENHA_CPP));
+  localStorage.setItem('np_versao', APP_VERSAO);
 
   // Envia para o Google Forms em background (sem redirecionamento)
   const formData = new FormData();
@@ -1797,7 +1808,17 @@ function entrarNoApp(nome) {
 // Verifica se já tem acesso
 window.addEventListener('DOMContentLoaded', () => {
   const acesso = localStorage.getItem('np_acesso');
+  const versaoSalva = localStorage.getItem('np_versao');
+
   if (acesso === '1') {
+    // Verifica se a versão é a mesma — se mudou, derruba o acesso
+    if (versaoSalva !== APP_VERSAO) {
+      localStorage.removeItem('np_acesso');
+      localStorage.removeItem('np_senha_ok');
+      localStorage.removeItem('np_versao');
+      // Não entra no app — cai na tela de login
+      return;
+    }
     const nome = localStorage.getItem('np_nome') || '';
     entrarNoApp(nome);
   }
