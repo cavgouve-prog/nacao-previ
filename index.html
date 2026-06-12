@@ -2769,11 +2769,13 @@ const FEEDS = [
 const SG = {
   clientes: JSON.parse(localStorage.getItem('sg_clientes') || '[]'),
   processos: JSON.parse(localStorage.getItem('sg_processos') || '[]'),
+  tarefas: JSON.parse(localStorage.getItem('sg_tarefas') || '[]'),
 };
 
 function sgSalvar() {
   localStorage.setItem('sg_clientes', JSON.stringify(SG.clientes));
   localStorage.setItem('sg_processos', JSON.stringify(SG.processos));
+  localStorage.setItem('sg_tarefas', JSON.stringify(SG.tarefas || []));
 }
 
 function sgId() { return 'sg' + Date.now() + Math.random().toString(36).substr(2,5); }
@@ -3652,9 +3654,9 @@ sgGerarDoc = function() {
 
 
 // ===== TAREFAS =====
-if (!SG.tarefas) SG.tarefas = JSON.parse(localStorage.getItem('sg_tarefas') || '[]');
+// SG.tarefas já inicializado no objeto SG acima
 
-const _sgSalvarOriginal = sgSalvar;
+
 sgSalvar = function() {
   localStorage.setItem('sg_clientes', JSON.stringify(SG.clientes));
   localStorage.setItem('sg_processos', JSON.stringify(SG.processos));
