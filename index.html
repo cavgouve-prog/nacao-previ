@@ -1811,13 +1811,19 @@ window.addEventListener('DOMContentLoaded', () => {
   const versaoSalva = localStorage.getItem('np_versao');
 
   if (acesso === '1') {
-    // Verifica se a versão é a mesma — se mudou, derruba o acesso
-    if (versaoSalva !== APP_VERSAO) {
+    // Só derruba se a versão foi explicitamente trocada
+    // Se versaoSalva não existe (logou antes), salva a versão atual e deixa entrar
+    if (versaoSalva && versaoSalva !== APP_VERSAO) {
+      // Versão mudou: limpa APENAS o acesso, NUNCA os dados de gestão
       localStorage.removeItem('np_acesso');
       localStorage.removeItem('np_senha_ok');
       localStorage.removeItem('np_versao');
-      // Não entra no app — cai na tela de login
+      // Cai na tela de login — dados sg_clientes, sg_processos, sg_tarefas preservados
       return;
+    }
+    // Atualiza versão salva se necessário
+    if (!versaoSalva) {
+      localStorage.setItem('np_versao', APP_VERSAO);
     }
     const nome = localStorage.getItem('np_nome') || '';
     entrarNoApp(nome);
