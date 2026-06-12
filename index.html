@@ -581,6 +581,130 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
+
+  /* ===== SISTEMA GESTÃO ===== */
+  :root { --verde: #4CAF7D; --vermelho: #E05555; --amarelo: #E0A84B; --azul: #4B8FE0; }
+
+  .sg-tabs { display:flex; gap:6px; margin-bottom:16px; overflow-x:auto; padding-bottom:4px; }
+  .sg-tab { background:transparent; border:1px solid var(--preto-borda); border-radius:6px; padding:7px 14px; color:var(--cinza); font-family:var(--fonte-corpo); font-size:12px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
+  .sg-tab.ativo { background:var(--ouro); color:var(--preto); border-color:var(--ouro); font-weight:600; }
+
+  .sg-card { background:var(--preto-card); border:1px solid var(--preto-borda); border-radius:10px; padding:14px; margin-bottom:10px; cursor:pointer; transition:border-color 0.15s; }
+  .sg-card:hover { border-color:var(--ouro-escuro); }
+  .sg-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; }
+  .sg-card-nome { font-size:14px; font-weight:600; color:var(--branco); }
+  .sg-card-sub { font-size:11px; color:var(--cinza); margin-top:2px; }
+  .sg-badge { font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600; }
+  .sg-badge-verde { background:rgba(76,175,125,0.15); color:var(--verde); }
+  .sg-badge-amarelo { background:rgba(224,168,75,0.15); color:var(--amarelo); }
+  .sg-badge-vermelho { background:rgba(224,85,85,0.15); color:var(--vermelho); }
+  .sg-badge-ouro { background:rgba(197,176,97,0.15); color:var(--ouro); }
+  .sg-badge-azul { background:rgba(75,143,224,0.15); color:var(--azul); }
+
+  .sg-dash { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+  .sg-dash-card { background:var(--preto-card); border:1px solid var(--preto-borda); border-radius:10px; padding:14px; text-align:center; }
+  .sg-dash-num { font-family:var(--fonte-titulo); font-size:32px; font-weight:700; line-height:1; margin-bottom:4px; }
+  .sg-dash-lbl { font-size:10px; color:var(--cinza); text-transform:uppercase; letter-spacing:1px; }
+
+  .sg-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:600; align-items:flex-end; justify-content:center; }
+  .sg-modal.ativo { display:flex; }
+  .sg-modal-box { background:var(--preto-card); border:1px solid var(--preto-borda); border-radius:16px 16px 0 0; padding:20px; width:100%; max-width:640px; max-height:92vh; overflow-y:auto; }
+  .sg-modal-titulo { font-family:var(--fonte-titulo); font-size:22px; color:var(--ouro); margin-bottom:2px; }
+  .sg-modal-sub { font-size:11px; color:var(--cinza); margin-bottom:16px; }
+  .sg-close { float:right; background:none; border:none; color:var(--cinza); font-size:24px; cursor:pointer; line-height:1; }
+
+  .sg-section-lbl { font-size:10px; color:var(--cinza); text-transform:uppercase; letter-spacing:1px; margin:14px 0 8px; }
+
+  .sg-andamento { display:flex; gap:10px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .sg-andamento:last-child { border-bottom:none; }
+  .sg-and-dot { width:8px; height:8px; border-radius:50%; background:var(--ouro); flex-shrink:0; margin-top:5px; }
+  .sg-and-data { font-size:10px; color:var(--cinza); white-space:nowrap; }
+  .sg-and-texto { font-size:12px; color:var(--branco); flex:1; line-height:1.4; }
+
+  .sg-doc-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .sg-doc-item:last-child { border-bottom:none; }
+  .sg-doc-check { width:18px; height:18px; border-radius:4px; border:1.5px solid var(--preto-borda); flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+  .sg-doc-check.ok { background:rgba(76,175,125,0.2); border-color:var(--verde); color:var(--verde); font-size:11px; }
+  .sg-doc-nome { font-size:12px; color:var(--branco); flex:1; }
+
+  .sg-fin-linha { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px; }
+  .sg-fin-linha:last-child { border-bottom:none; }
+  .sg-fin-lbl { color:var(--cinza); }
+  .sg-fin-val { font-weight:600; }
+
+  .sg-prazo-item { background:var(--preto-card); border:1px solid var(--preto-borda); border-radius:8px; padding:12px 14px; margin-bottom:8px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:border-color 0.15s; }
+  .sg-prazo-item:hover { border-color:var(--ouro-escuro); }
+  .sg-prazo-barra { width:4px; border-radius:3px; align-self:stretch; flex-shrink:0; min-height:36px; }
+
+  .sg-empty { text-align:center; padding:32px 0; color:var(--cinza); font-size:13px; }
+
+  .sg-btn-sm { background:transparent; border:1px solid var(--preto-borda); border-radius:5px; color:var(--cinza); padding:5px 10px; font-size:11px; cursor:pointer; font-family:var(--fonte-corpo); transition:all 0.15s; }
+  .sg-btn-sm:hover { border-color:var(--ouro); color:var(--ouro); }
+  .sg-btn-sm.destaque { border-color:var(--ouro); color:var(--preto); background:var(--ouro); }
+
+  .sg-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+  .sg-info-box { background:#1A1A1A; border-radius:7px; padding:10px; }
+  .sg-info-lbl { font-size:9px; color:var(--cinza); text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; }
+  .sg-info-val { font-size:12px; color:var(--branco); }
+
+
+  /* ===== EXTRAS ===== */
+  .sg-alert-box { background: #1A1000; border: 1px solid var(--amarelo); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; cursor: pointer; }
+  .sg-alert-titulo { font-size: 13px; font-weight: 600; color: var(--amarelo); margin-bottom: 4px; }
+  .sg-alert-desc { font-size: 12px; color: var(--cinza); }
+  .sg-hon-resultado { background: #0A1A0A; border: 1px solid #1A3A1A; border-radius: 8px; padding: 14px; margin-top: 12px; display: none; }
+  .sg-hon-resultado.visivel { display: block; }
+  .como-usar-step { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .como-usar-step:last-child { border-bottom: none; }
+  .como-usar-num { width: 28px; height: 28px; border-radius: 50%; background: var(--ouro); color: var(--preto); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .como-usar-titulo { font-size: 14px; font-weight: 600; color: var(--branco); margin-bottom: 4px; }
+  .como-usar-desc { font-size: 12px; color: var(--cinza); line-height: 1.5; }
+  .atend-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .atend-item:last-child { border-bottom: none; }
+  .atend-canal { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: rgba(197,176,97,0.15); color: var(--ouro); white-space: nowrap; height: fit-content; }
+  .atend-data { font-size: 10px; color: var(--cinza); }
+  .atend-texto { font-size: 12px; color: var(--branco); line-height: 1.4; margin-top: 2px; }
+  .doc-gerado { background: #0D0D0D; border: 1px solid var(--preto-borda); border-radius: 8px; padding: 14px; font-size: 12px; line-height: 1.8; color: #ccc; white-space: pre-wrap; max-height: 340px; overflow-y: auto; margin: 12px 0; font-family: 'Courier New', monospace; }
+  .qs-status-box { border-radius: 8px; padding: 12px 14px; margin: 10px 0; }
+  .qs-ok { background: rgba(76,175,125,0.1); border: 1px solid rgba(76,175,125,0.3); }
+  .qs-nok { background: rgba(224,85,85,0.1); border: 1px solid rgba(224,85,85,0.3); }
+
+
+  /* ===== DOCS EXTRAS + UPLOAD MODELOS ===== */
+  .sg-doc-extra-input { display:flex; gap:6px; margin-top:8px; }
+  .sg-doc-extra-input input { flex:1; background:#1A1A1A; border:1px solid var(--preto-borda); border-radius:6px; padding:8px 12px; color:var(--branco); font-family:var(--fonte-corpo); font-size:12px; outline:none; }
+  .sg-doc-extra-input input:focus { border-color:var(--ouro); }
+  .sg-doc-extra-btn { background:var(--ouro); color:var(--preto); border:none; border-radius:6px; padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; }
+  .sg-doc-remove { background:none; border:none; color:#555; font-size:14px; cursor:pointer; padding:0 4px; flex-shrink:0; }
+  .sg-doc-remove:hover { color:var(--vermelho); }
+  .sg-upload-area { border:2px dashed var(--preto-borda); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:border-color 0.2s; margin-bottom:10px; }
+  .sg-upload-area:hover { border-color:var(--ouro); }
+  .sg-upload-area.tem-arquivo { border-color:var(--verde); background:rgba(76,175,125,0.05); }
+  .sg-upload-icon { font-size:28px; margin-bottom:6px; }
+  .sg-upload-txt { font-size:12px; color:var(--cinza); }
+  .sg-upload-nome { font-size:12px; color:var(--verde); font-weight:600; margin-top:4px; }
+  .sg-modelo-salvo { background:rgba(76,175,125,0.1); border:1px solid rgba(76,175,125,0.3); border-radius:6px; padding:8px 12px; font-size:12px; color:var(--verde); display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+
+
+  /* ===== TAREFAS ===== */
+  .sg-tarefa-item { background: var(--preto-card); border: 1px solid var(--preto-borda); border-radius: 10px; padding: 13px 14px; margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s; display: flex; gap: 12px; align-items: flex-start; }
+  .sg-tarefa-item:hover { border-color: var(--ouro-escuro); }
+  .sg-tarefa-item.concluida { opacity: 0.55; }
+  .sg-tarefa-item.cancelada { opacity: 0.4; }
+  .sg-tarefa-check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--preto-borda); flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 2px; transition: all 0.15s; }
+  .sg-tarefa-check.concluida { background: rgba(76,175,125,0.2); border-color: var(--verde); color: var(--verde); }
+  .sg-tarefa-check.cancelada { background: rgba(224,85,85,0.1); border-color: var(--vermelho); color: var(--vermelho); }
+  .sg-tarefa-titulo { font-size: 13px; font-weight: 500; color: var(--branco); margin-bottom: 4px; line-height: 1.3; }
+  .sg-tarefa-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .sg-tarefa-data { font-size: 10px; color: var(--cinza); }
+  .sg-tarefa-data.fatal { color: var(--vermelho); font-weight: 600; }
+  .sg-tarefa-resp { font-size: 10px; background: rgba(75,143,224,0.12); color: var(--azul); padding: 1px 7px; border-radius: 10px; }
+  .sg-tarefa-cliente { font-size: 10px; background: rgba(197,176,97,0.12); color: var(--ouro); padding: 1px 7px; border-radius: 10px; }
+  .sg-status-btn { font-size: 10px; padding: 2px 8px; border-radius: 4px; border: none; cursor: pointer; font-family: var(--fonte-corpo); font-weight: 600; }
+  .sg-status-pendente { background: rgba(224,168,75,0.15); color: var(--amarelo); }
+  .sg-status-concluida { background: rgba(76,175,125,0.15); color: var(--verde); }
+  .sg-status-cancelada { background: rgba(224,85,85,0.15); color: var(--vermelho); }
+
 </style>
 </head>
 <body>
@@ -597,6 +721,7 @@
       <input type="text" id="cap-nome" placeholder="Seu nome completo" autocomplete="name">
       <input type="email" id="cap-email" placeholder="Seu melhor e-mail" autocomplete="email">
       <input type="tel" id="cap-whats" placeholder="WhatsApp com DDD (ex: 11999999999)" autocomplete="tel">
+      <input type="password" id="cap-senha" placeholder="Senha de acesso CPP" autocomplete="off">
       <button class="btn-acessar" onclick="acessarApp()">ACESSAR AS FERRAMENTAS</button>
     </div>
     <div class="captura-privacidade">Seus dados são usados apenas para comunicações do Nação Previ.<br>Sem spam. Prometido.</div>
@@ -614,12 +739,155 @@
     <div class="header-user" id="header-nome"></div>
   </div>
 
+
+  <!-- TELA: ESCRITÓRIO (SISTEMA DE GESTÃO) -->
+  <div class="tela" id="tela-escritorio">
+    <div class="tag-ouro">Escritório</div>
+    <div class="section-titulo" style="margin-bottom:2px">Gestão</div>
+
+    <!-- SUB-ABAS -->
+    <div class="sg-tabs" id="sg-tabs">
+      <button class="sg-tab ativo" onclick="sgAba('dashboard')">📊 Painel</button>
+      <button class="sg-tab" onclick="sgAba('clientes')">👤 Clientes</button>
+      <button class="sg-tab" onclick="sgAba('processos')">⚖️ Processos</button>
+      <button class="sg-tab" onclick="sgAba('prazos')">⏰ Prazos</button>
+      <button class="sg-tab" onclick="sgAba('financeiro')">💲 Financeiro</button>
+      <button class="sg-tab" onclick="sgAba('tarefas')">✅ Tarefas</button>
+    </div>
+
+    <!-- PAINEL -->
+    <div id="sg-aba-dashboard">
+      <div class="sg-dash" id="sg-dash-nums"></div>
+      <div id="sg-dash-urgentes"></div>
+      <div id="sg-dash-recentes"></div>
+    </div>
+
+    <!-- CLIENTES -->
+    <div id="sg-aba-clientes" style="display:none">
+      <button class="btn" onclick="sgAbrirNovoCliente()" style="margin-bottom:14px">+ Novo Cliente</button>
+      <div id="sg-lista-clientes"></div>
+    </div>
+
+    <!-- PROCESSOS -->
+    <div id="sg-aba-processos" style="display:none">
+      <button class="btn" onclick="sgAbrirNovoProcesso()" style="margin-bottom:14px">+ Novo Processo</button>
+      <div id="sg-lista-processos"></div>
+    </div>
+
+    <!-- PRAZOS -->
+    <div id="sg-aba-prazos" style="display:none">
+      <div id="sg-lista-prazos"></div>
+    </div>
+
+    <!-- TAREFAS -->
+    <div id="sg-aba-tarefas" style="display:none">
+      <button class="btn" onclick="sgAbrirNovaTarefa()" style="margin-bottom:14px">+ Nova Tarefa</button>
+      <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px">
+        <button class="sg-btn-sm" onclick="sgFiltrarTarefas('todas')" id="sg-tf-btn-todas" style="border-color:var(--ouro);color:var(--ouro)">Todas</button>
+        <button class="sg-btn-sm" onclick="sgFiltrarTarefas('pendente')" id="sg-tf-btn-pendente">Pendentes</button>
+        <button class="sg-btn-sm" onclick="sgFiltrarTarefas('concluida')" id="sg-tf-btn-concluida">Concluídas</button>
+        <button class="sg-btn-sm" onclick="sgFiltrarTarefas('cancelada')" id="sg-tf-btn-cancelada">Canceladas</button>
+      </div>
+      <div id="sg-lista-tarefas"></div>
+    </div>
+
+    <!-- FINANCEIRO -->
+    <div id="sg-aba-financeiro" style="display:none">
+      <button class="btn-outline" onclick="sgAbrirHonorarios()" style="margin-bottom:14px">🧮 Calcular Honorários</button>
+      <div id="sg-resumo-fin"></div>
+      <div id="sg-lista-fin"></div>
+    </div>
+  </div>
+
+  <!-- TELA: COMO USAR -->
+  <div class="tela" id="tela-como-usar">
+    <div class="tag-ouro">Guia</div>
+    <div class="section-titulo">Como Usar</div>
+    <div class="section-desc">Passo a passo para tirar o máximo do app Nação Previ.</div>
+
+    <div class="card" style="border-left:3px solid var(--ouro)">
+      <div class="card-titulo" style="font-size:16px;margin-bottom:12px">🏛️ Sistema de Gestão do Escritório</div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">1</div>
+        <div><div class="como-usar-titulo">Cadastre o cliente</div><div class="como-usar-desc">Vá em Escritório → Clientes → Novo Cliente. Preencha nome, CPF, WhatsApp e os dados que tiver. O cliente é a base de tudo.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">2</div>
+        <div><div class="como-usar-titulo">Abra o processo</div><div class="como-usar-desc">Dentro do cliente, clique em + Processo. Defina o tipo de benefício, a via (INSS ou judicial), a fase atual e o prazo. Você pode editar à medida que o caso evolui.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">3</div>
+        <div><div class="como-usar-titulo">Marque os documentos recebidos</div><div class="como-usar-desc">Dentro do processo, há um checklist com os principais documentos previdenciários. Clique no círculo para marcar o que o cliente já entregou.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">4</div>
+        <div><div class="como-usar-titulo">Registre os atendimentos</div><div class="como-usar-desc">Cada vez que o cliente ligar, vir ao escritório ou mandar mensagem, registre um atendimento. Isso cria o histórico completo do relacionamento.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">5</div>
+        <div><div class="como-usar-titulo">Lance os andamentos processuais</div><div class="como-usar-desc">Sempre que houver uma movimentação no processo (despacho, intimação, sentença, decisão INSS), registre um andamento com a data e o resumo.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">6</div>
+        <div><div class="como-usar-titulo">Configure o financeiro</div><div class="como-usar-desc">Registre os honorários combinados e o que já foi recebido. O painel mostra automaticamente o total a receber consolidado de todos os processos.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">7</div>
+        <div><div class="como-usar-titulo">Gere procuração e contrato</div><div class="como-usar-desc">Dentro do processo, use o botão Gerar Docs para criar a procuração e o contrato de honorários já preenchidos com os dados do cliente. Copie e cole no Word para ajustes finais.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">8</div>
+        <div><div class="como-usar-titulo">Monitore os prazos</div><div class="como-usar-desc">A aba Prazos mostra todos os processos com data limite, organizados por urgência. O Painel alerta automaticamente ao abrir o app quando há prazos vencendo.</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--ouro);margin-top:4px">
+      <div class="card-titulo" style="font-size:16px;margin-bottom:12px">⚖️ Calculadoras Previdenciárias</div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">⚖️</div>
+        <div><div class="como-usar-titulo">Tempo Especial</div><div class="como-usar-desc">Informe os períodos em condições especiais e o sexo do segurado. O sistema aplica o fator de conversão correto (1,4 homem / 1,2 mulher) e soma com o tempo comum.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">💰</div>
+        <div><div class="como-usar-titulo">Valor da Causa</div><div class="como-usar-desc">Informe a DIB e a data do ajuizamento. O sistema calcula o pretérito mês a mês com reajustes históricos reais do INPC, limitando automaticamente pela prescrição quinquenal de 5 anos.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">📋</div>
+        <div><div class="como-usar-titulo">Regras de Transição EC 103</div><div class="como-usar-desc">Informe idade, tempo de contribuição atual e o tempo em 13/11/2019. O sistema verifica automaticamente todas as 5 regras de transição da Reforma da Previdência.</div></div>
+      </div>
+      <div class="como-usar-step">
+        <div class="como-usar-num">🛡️</div>
+        <div><div class="como-usar-titulo">Qualidade de Segurado</div><div class="como-usar-desc">Informe a data da última contribuição e o inciso aplicável. O sistema calcula o fim do período de graça, o vencimento da contribuição e a data exata de perda da qualidade.</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="background:linear-gradient(135deg,#1A1500,#0D0D0D);border-color:rgba(197,176,97,0.3)">
+      <div class="card-titulo" style="font-size:15px;margin-bottom:8px">💾 Sobre seus dados</div>
+      <div style="font-size:12px;color:var(--cinza);line-height:1.7">
+        Todos os dados são salvos <strong style="color:var(--branco)">localmente no seu navegador</strong>, neste dispositivo.<br>
+        Ninguém mais tem acesso. Não há servidor. Não há nuvem.<br>
+        <strong style="color:var(--amarelo)">⚠️ Atenção:</strong> se limpar o navegador ou trocar de dispositivo, os dados não acompanham.<br>
+        Use sempre o mesmo computador e navegador para acessar o app.
+      </div>
+    </div>
+  </div>
+
   <!-- TELA: HOME -->
   <div class="tela ativa" id="tela-home">
     <br>
     <div class="tag-ouro">Bem-vindo</div>
     <div class="section-titulo">Suas Ferramentas</div>
     <div class="section-desc">Tudo que o previdenciarista precisa no bolso.</div>
+
+    <div class="card" onclick="irPara('como-usar')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">📖 Como Usar o App</div>
+      <div class="card-desc">Guia completo: gestão de clientes, calculadoras, prazos e todas as ferramentas.</div>
+    </div>
+
+    <div class="card" onclick="irPara('escritorio')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
+      <div class="card-titulo">🏛️ Gestão do Escritório</div>
+      <div class="card-desc">Clientes, processos, andamentos, documentos e financeiro. Tudo no seu dispositivo.</div>
+    </div>
 
     <div class="card" onclick="irPara('calc-especial')" style="cursor:pointer; border-left: 3px solid var(--ouro);">
       <div class="card-titulo">⚖️ Tempo Especial</div>
@@ -1051,6 +1319,8 @@
     <span class="nav-icone">🏠</span>
     <span>Início</span>
   </button>
+  <button class="nav-item" onclick="irPara('escritorio')" id="nav-escritorio"><span class="nav-icone">🏛️</span><span>Escritório</span></button>
+  <button class="nav-item" onclick="irPara('como-usar')" id="nav-como-usar"><span class="nav-icone">📖</span><span>Guia</span></button>
   <button class="nav-item" onclick="irPara('calc-especial')" id="nav-calc-especial">
     <span class="nav-icone">⚖️</span>
     <span>Especial</span>
@@ -1079,6 +1349,321 @@
     <span class="nav-icone">📊</span>
     <span>Tabelas</span>
   </button>
+</div>
+
+
+<!-- MODAIS SISTEMA GESTÃO -->
+
+<!-- MODAL NOVO CLIENTE -->
+<div class="sg-modal" id="sg-modal-cliente">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-cliente')">×</button>
+    <div class="sg-modal-titulo" id="sg-mc-titulo">Novo Cliente</div>
+    <div class="sg-modal-sub">Dados pessoais e contato</div>
+    <input type="hidden" id="sg-mc-id">
+    <label class="label">Nome completo *</label>
+    <input class="input" id="sg-mc-nome" placeholder="Nome completo do cliente">
+    <div class="row-2">
+      <div><label class="label">CPF</label><input class="input" id="sg-mc-cpf" placeholder="000.000.000-00"></div>
+      <div><label class="label">Data de nascimento</label><input class="input" type="date" id="sg-mc-nasc"></div>
+    </div>
+    <label class="label">WhatsApp / Telefone</label>
+    <input class="input" id="sg-mc-tel" placeholder="(11) 99999-9999">
+    <label class="label">E-mail</label>
+    <input class="input" id="sg-mc-email" placeholder="email@exemplo.com">
+    <label class="label">Endereço</label>
+    <input class="input" id="sg-mc-end" placeholder="Rua, número, bairro, cidade">
+    <label class="label">Observações</label>
+    <input class="input" id="sg-mc-obs" placeholder="Informações relevantes sobre o cliente">
+    <button class="btn" onclick="sgSalvarCliente()">Salvar Cliente</button>
+  </div>
+</div>
+
+<!-- MODAL VER CLIENTE -->
+<div class="sg-modal" id="sg-modal-ver-cliente">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-ver-cliente')">×</button>
+    <div class="sg-modal-titulo" id="sg-vc-nome"></div>
+    <div class="sg-modal-sub" id="sg-vc-sub"></div>
+    <div id="sg-vc-conteudo"></div>
+  </div>
+</div>
+
+<!-- MODAL NOVO PROCESSO -->
+<div class="sg-modal" id="sg-modal-processo">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-processo')">×</button>
+    <div class="sg-modal-titulo" id="sg-mp-titulo">Novo Processo</div>
+    <div class="sg-modal-sub">Dados do processo previdenciário</div>
+    <input type="hidden" id="sg-mp-id">
+    <label class="label">Cliente *</label>
+    <select class="select" id="sg-mp-cliente"></select>
+    <label class="label">Tipo de benefício *</label>
+    <select class="select" id="sg-mp-beneficio">
+      <option>Aposentadoria por incapacidade permanente</option>
+      <option>Auxílio por incapacidade temporária</option>
+      <option>Aposentadoria por idade</option>
+      <option>Aposentadoria programada (EC 103/2019)</option>
+      <option>Aposentadoria especial</option>
+      <option>Pensão por morte</option>
+      <option>Salário-maternidade</option>
+      <option>BPC/LOAS</option>
+      <option>Revisão de benefício</option>
+      <option>Restabelecimento</option>
+      <option>RPPS - Aposentadoria</option>
+      <option>Outros</option>
+    </select>
+    <label class="label">Via</label>
+    <select class="select" id="sg-mp-via">
+      <option>Administrativa (INSS)</option>
+      <option>Judicial - JEF</option>
+      <option>Judicial - TRF</option>
+      <option>Judicial - RPPS</option>
+    </select>
+    <label class="label">Número do processo (se houver)</label>
+    <input class="input" id="sg-mp-numero" placeholder="0000000-00.0000.0.00.0000">
+    <label class="label">Vara / Unidade</label>
+    <input class="input" id="sg-mp-vara" placeholder="Ex: 3ª Vara Federal de São Paulo">
+    <label class="label">Fase atual</label>
+    <select class="select" id="sg-mp-fase">
+      <option>Captação</option>
+      <option>Análise documental</option>
+      <option>Requerimento INSS</option>
+      <option>Aguardando decisão INSS</option>
+      <option>Recurso CRPS</option>
+      <option>Petição inicial elaborada</option>
+      <option>Aguardando audiência</option>
+      <option>Aguardando perícia</option>
+      <option>Aguardando sentença</option>
+      <option>Recurso judicial</option>
+      <option>Cumprimento de sentença</option>
+      <option>Concluído</option>
+    </select>
+    <label class="label">Prazo / Data importante</label>
+    <input class="input" type="date" id="sg-mp-prazo">
+    <label class="label">Responsável</label>
+    <select class="select" id="sg-mp-resp">
+      <option>Advogado(a) titular</option>
+      <option>Advogado(a) sênior</option>
+      <option>Advogado(a) associado(a)</option>
+      <option>Estagiário(a)</option>
+    </select>
+    <label class="label">Observações</label>
+    <input class="input" id="sg-mp-obs" placeholder="Informações relevantes">
+    <button class="btn" onclick="sgSalvarProcesso()">Salvar Processo</button>
+  </div>
+</div>
+
+<!-- MODAL VER PROCESSO -->
+<div class="sg-modal" id="sg-modal-ver-processo">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-ver-processo')">×</button>
+    <div class="sg-modal-titulo" id="sg-vp-titulo"></div>
+    <div class="sg-modal-sub" id="sg-vp-sub"></div>
+    <div id="sg-vp-conteudo"></div>
+  </div>
+</div>
+
+<!-- MODAL NOVO ANDAMENTO -->
+<div class="sg-modal" id="sg-modal-andamento">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-andamento')">×</button>
+    <div class="sg-modal-titulo">Novo Andamento</div>
+    <div class="sg-modal-sub" id="sg-and-sub"></div>
+    <input type="hidden" id="sg-and-proc-id">
+    <label class="label">Data</label>
+    <input class="input" type="date" id="sg-and-data">
+    <label class="label">Descrição *</label>
+    <textarea class="input" id="sg-and-texto" rows="3" style="resize:vertical" placeholder="Descreva o andamento, decisão ou movimentação..."></textarea>
+    <button class="btn" onclick="sgSalvarAndamento()">Salvar Andamento</button>
+  </div>
+</div>
+
+<!-- MODAL FINANCEIRO PROCESSO -->
+<div class="sg-modal" id="sg-modal-financeiro">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-financeiro')">×</button>
+    <div class="sg-modal-titulo">Financeiro</div>
+    <div class="sg-modal-sub" id="sg-fin-sub"></div>
+    <input type="hidden" id="sg-fin-proc-id">
+    <label class="label">Honorários combinados (R$)</label>
+    <input class="input" type="number" id="sg-fin-total" placeholder="Ex: 3000.00" step="0.01">
+    <label class="label">Valor já recebido (R$)</label>
+    <input class="input" type="number" id="sg-fin-recebido" placeholder="Ex: 1000.00" step="0.01">
+    <label class="label">Forma de pagamento</label>
+    <select class="select" id="sg-fin-forma">
+      <option>À vista</option>
+      <option>Parcelado</option>
+      <option>Êxito</option>
+      <option>Misto (entrada + êxito)</option>
+    </select>
+    <label class="label">Observações financeiras</label>
+    <input class="input" id="sg-fin-obs" placeholder="Ex: 3x de R$1.000, vence todo dia 10">
+    <button class="btn" onclick="sgSalvarFinanceiro()">Salvar</button>
+  </div>
+</div>
+
+
+<!-- MODAL ATENDIMENTO -->
+<div class="sg-modal" id="sg-modal-atendimento">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-atendimento')">×</button>
+    <div class="sg-modal-titulo">Novo Atendimento</div>
+    <div class="sg-modal-sub" id="sg-at-sub"></div>
+    <input type="hidden" id="sg-at-cliente-id">
+    <label class="label">Data</label>
+    <input class="input" type="date" id="sg-at-data">
+    <label class="label">Canal</label>
+    <select class="select" id="sg-at-canal">
+      <option>Presencial</option>
+      <option>WhatsApp</option>
+      <option>Telefone</option>
+      <option>E-mail</option>
+      <option>Videoconferência</option>
+    </select>
+    <label class="label">Resumo *</label>
+    <textarea class="input" id="sg-at-texto" rows="3" style="resize:vertical" placeholder="O que foi tratado neste atendimento..."></textarea>
+    <button class="btn" onclick="sgSalvarAtendimento()">Salvar Atendimento</button>
+  </div>
+</div>
+
+<!-- MODAL GERAR DOCUMENTOS -->
+<div class="sg-modal" id="sg-modal-gerar-doc">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-gerar-doc')">×</button>
+    <div class="sg-modal-titulo" id="sg-gd-titulo">Gerar Documento</div>
+    <div class="sg-modal-sub" id="sg-gd-sub"></div>
+    <button class="sg-btn-sm" onclick="sgAbrirModelos()" style="margin-bottom:12px">📂 Meus Modelos</button>
+    <label class="label">Documento</label>
+    <select class="select" id="sg-gd-tipo" onchange="sgGerarDoc()">
+      <option value="procuracao">Procuração</option>
+      <option value="contrato">Contrato de Honorários</option>
+    </select>
+    <label class="label">Nome do advogado</label>
+    <input class="input" id="sg-gd-adv" placeholder="Seu nome completo">
+    <label class="label">OAB</label>
+    <input class="input" id="sg-gd-oab" placeholder="Ex: OAB/SP 327.414">
+    <label class="label">Cidade</label>
+    <input class="input" id="sg-gd-cidade" placeholder="Ex: São Paulo">
+    <button class="btn-outline" onclick="sgGerarDoc()" style="margin-bottom:8px">Gerar</button>
+    <div class="doc-gerado" id="sg-gd-resultado" style="display:none"></div>
+    <button class="btn" id="sg-gd-copiar" onclick="sgCopiarDoc()" style="display:none">📋 Copiar documento</button>
+  </div>
+</div>
+
+<!-- MODAL CALCULADORA HONORÁRIOS -->
+<div class="sg-modal" id="sg-modal-honorarios">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-honorarios')">×</button>
+    <div class="sg-modal-titulo">Calculadora de Honorários</div>
+    <div class="sg-modal-sub">Baseada na tabela OAB e práticas do mercado previdenciário</div>
+    <label class="label">Valor da causa (R$)</label>
+    <input class="input" type="number" id="sg-hon-causa" placeholder="Ex: 50000.00" step="0.01" oninput="sgCalcHonorarios()">
+    <label class="label">Tipo de honorários</label>
+    <select class="select" id="sg-hon-tipo" onchange="sgCalcHonorarios()">
+      <option value="exito">Êxito (% sobre valor da causa)</option>
+      <option value="fixo">Fixo (valor combinado)</option>
+      <option value="misto">Misto (entrada + % êxito)</option>
+    </select>
+    <div id="sg-hon-resultado" class="sg-hon-resultado"></div>
+    <div style="margin-top:12px;font-size:11px;color:var(--cinza);line-height:1.6">
+      ⚠️ Estes são valores de referência. O contrato de honorários deve sempre ser formalizado por escrito. Consulte sempre a tabela de honorários da sua seccional OAB.
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ALERTAS DE PRAZO -->
+<div class="sg-modal" id="sg-modal-alertas">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-alertas')">×</button>
+    <div class="sg-modal-titulo">⚠️ Atenção aos Prazos</div>
+    <div class="sg-modal-sub">Você tem processos com prazo vencendo em breve</div>
+    <div id="sg-alertas-conteudo"></div>
+    <button class="btn-outline" onclick="sgFechar('sg-modal-alertas');irPara('escritorio');sgAba('prazos')" style="margin-top:8px">Ver todos os prazos</button>
+  </div>
+</div>
+
+
+<!-- MODAL UPLOAD MODELOS -->
+<div class="sg-modal" id="sg-modal-modelos">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-modelos')">×</button>
+    <div class="sg-modal-titulo">Meus Modelos</div>
+    <div class="sg-modal-sub">Suba seus modelos de procuração e contrato. O sistema usará como base ao gerar documentos.</div>
+
+    <div class="sg-section-lbl">Modelo de Procuração</div>
+    <div id="sg-modelo-proc-status"></div>
+    <div class="sg-upload-area" id="sg-upload-proc-area" onclick="document.getElementById('sg-upload-proc').click()">
+      <div class="sg-upload-icon">📄</div>
+      <div class="sg-upload-txt">Clique para selecionar arquivo .txt ou .docx</div>
+      <div class="sg-upload-nome" id="sg-upload-proc-nome"></div>
+    </div>
+    <input type="file" id="sg-upload-proc" accept=".txt,.docx" style="display:none" onchange="sgLerModelo('proc',this)">
+    <div style="font-size:11px;color:var(--cinza);margin-bottom:16px;line-height:1.5">
+      Use os campos abaixo no seu modelo e o sistema substituirá automaticamente:<br>
+      <span style="color:var(--ouro)">{{CLIENTE_NOME}} {{CLIENTE_CPF}} {{CLIENTE_NASC}} {{CLIENTE_END}} {{BENEFICIO}} {{ADV_NOME}} {{ADV_OAB}} {{CIDADE}} {{DATA}}</span>
+    </div>
+
+    <div class="sg-section-lbl">Modelo de Contrato de Honorários</div>
+    <div id="sg-modelo-cont-status"></div>
+    <div class="sg-upload-area" id="sg-upload-cont-area" onclick="document.getElementById('sg-upload-cont').click()">
+      <div class="sg-upload-icon">📋</div>
+      <div class="sg-upload-txt">Clique para selecionar arquivo .txt ou .docx</div>
+      <div class="sg-upload-nome" id="sg-upload-cont-nome"></div>
+    </div>
+    <input type="file" id="sg-upload-cont" accept=".txt,.docx" style="display:none" onchange="sgLerModelo('cont',this)">
+    <div style="font-size:11px;color:var(--cinza);margin-bottom:16px;line-height:1.5">
+      Use os mesmos campos de substituição acima no seu contrato.
+    </div>
+
+    <button class="btn" onclick="sgFechar('sg-modal-modelos')">Fechar</button>
+  </div>
+</div>
+
+
+<!-- MODAL NOVA TAREFA -->
+<div class="sg-modal" id="sg-modal-tarefa">
+  <div class="sg-modal-box">
+    <button class="sg-close" onclick="sgFechar('sg-modal-tarefa')">×</button>
+    <div class="sg-modal-titulo" id="sg-mt-titulo">Nova Tarefa</div>
+    <div class="sg-modal-sub">Vincule ao cliente e processo se necessário</div>
+    <input type="hidden" id="sg-mt-id">
+    <input type="hidden" id="sg-mt-proc-id-fix">
+    <label class="label">Título da tarefa *</label>
+    <input class="input" id="sg-mt-titulo-inp" placeholder="Ex: Ligar para cliente, Protocolar petição...">
+    <label class="label">Descrição (opcional)</label>
+    <textarea class="input" id="sg-mt-desc" rows="2" style="resize:vertical" placeholder="Detalhes da tarefa..."></textarea>
+    <div class="row-2">
+      <div>
+        <label class="label">Data prevista *</label>
+        <input class="input" type="datetime-local" id="sg-mt-prevista">
+      </div>
+      <div>
+        <label class="label">Data fatal (limite)</label>
+        <input class="input" type="datetime-local" id="sg-mt-fatal">
+      </div>
+    </div>
+    <label class="label">Responsável</label>
+    <input class="input" id="sg-mt-resp" placeholder="Nome de quem vai executar (opcional)">
+    <label class="label">Vincular ao cliente (opcional)</label>
+    <select class="select" id="sg-mt-cliente">
+      <option value="">— Sem vínculo —</option>
+    </select>
+    <label class="label">Vincular ao processo (opcional)</label>
+    <select class="select" id="sg-mt-processo">
+      <option value="">— Sem vínculo —</option>
+    </select>
+    <label class="label">Tipo</label>
+    <select class="select" id="sg-mt-tipo">
+      <option>Tarefa</option>
+      <option>Audiência</option>
+      <option>Compromisso</option>
+      <option>Ligação</option>
+      <option>Prazo processual</option>
+      <option>Reunião</option>
+    </select>
+    <button class="btn" onclick="sgSalvarTarefa()">Salvar Tarefa</button>
+  </div>
 </div>
 
 <!-- MODAL PEÇAS -->
@@ -1118,6 +1703,7 @@ function acessarApp() {
   localStorage.setItem('np_email', email);
   localStorage.setItem('np_whats', whats);
   localStorage.setItem('np_acesso', '1');
+  localStorage.setItem('np_senha_ok', btoa(SENHA_CPP));
 
   // Envia para o Google Forms em background (sem redirecionamento)
   const formData = new FormData();
@@ -1155,6 +1741,7 @@ function irPara(id) {
   const navEl = document.getElementById('nav-' + id);
   if (navEl) navEl.classList.add('ativo');
   window.scrollTo(0, 0);
+  if (id === 'escritorio') sgRenderDashboard();
 }
 
 // ===== CALCULADORA TEMPO ESPECIAL =====
@@ -2079,6 +2666,1230 @@ const FEEDS = [
   { nome: 'Conjur Previdência', url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.conjur.com.br/rss.xml' },
   { nome: 'JusBrasil Previdenciário', url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.jusbrasil.com.br/noticias/rss' }
 ];
+
+
+// ===== SISTEMA DE GESTÃO =====
+const SG = {
+  clientes: JSON.parse(localStorage.getItem('sg_clientes') || '[]'),
+  processos: JSON.parse(localStorage.getItem('sg_processos') || '[]'),
+};
+
+function sgSalvar() {
+  localStorage.setItem('sg_clientes', JSON.stringify(SG.clientes));
+  localStorage.setItem('sg_processos', JSON.stringify(SG.processos));
+}
+
+function sgId() { return 'sg' + Date.now() + Math.random().toString(36).substr(2,5); }
+
+function sgFechar(id) { document.getElementById(id).classList.remove('ativo'); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.sg-modal').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('ativo'); });
+  });
+});
+
+// ===== ABAS =====
+function sgAba(aba) {
+  ['dashboard','clientes','processos','prazos','financeiro','tarefas'].forEach(a => {
+    document.getElementById('sg-aba-' + a).style.display = a === aba ? 'block' : 'none';
+  });
+  document.querySelectorAll('.sg-tab').forEach((t, i) => {
+    t.classList.toggle('ativo', ['dashboard','clientes','processos','prazos','financeiro','tarefas'][i] === aba);
+  });
+  if (aba === 'dashboard') sgRenderDashboard();
+  if (aba === 'clientes') sgRenderClientes();
+  if (aba === 'processos') sgRenderProcessos();
+  if (aba === 'prazos') sgRenderPrazos();
+  if (aba === 'financeiro') sgRenderFinanceiro();
+  if (aba === 'tarefas') sgRenderTarefas();
+}
+
+// ===== DASHBOARD =====
+function sgRenderDashboard() {
+  const hoje = new Date();
+  const ativos = SG.processos.filter(p => p.fase !== 'Concluído').length;
+  const urgentes = SG.processos.filter(p => {
+    if (!p.prazo || p.fase === 'Concluído') return false;
+    const d = Math.ceil((new Date(p.prazo) - hoje) / 86400000);
+    return d >= 0 && d <= 5;
+  }).length;
+  const totalClientes = SG.clientes.length;
+  const totalHon = SG.processos.reduce((s, p) => s + (parseFloat(p.finTotal) || 0), 0);
+  const totalRec = SG.processos.reduce((s, p) => s + (parseFloat(p.finRecebido) || 0), 0);
+
+  const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2});
+
+  document.getElementById('sg-dash-nums').innerHTML = `
+    <div class="sg-dash-card"><div class="sg-dash-num" style="color:var(--ouro)">${totalClientes}</div><div class="sg-dash-lbl">Clientes</div></div>
+    <div class="sg-dash-card"><div class="sg-dash-num" style="color:var(--azul)">${ativos}</div><div class="sg-dash-lbl">Processos ativos</div></div>
+    <div class="sg-dash-card"><div class="sg-dash-num" style="color:var(--vermelho)">${urgentes}</div><div class="sg-dash-lbl">Prazos urgentes</div></div>
+    <div class="sg-dash-card"><div class="sg-dash-num" style="color:var(--verde);font-size:20px">${fmt(totalRec)}</div><div class="sg-dash-lbl">Honorários recebidos</div></div>
+  `;
+
+  // Prazos urgentes
+  const urg = SG.processos
+    .filter(p => p.prazo && p.fase !== 'Concluído')
+    .map(p => ({ ...p, dias: Math.ceil((new Date(p.prazo) - hoje) / 86400000) }))
+    .filter(p => p.dias <= 7)
+    .sort((a, b) => a.dias - b.dias)
+    .slice(0, 5);
+
+  let urgHtml = '';
+  if (urg.length) {
+    urgHtml = '<div class="sg-section-lbl">⚠️ Prazos nos próximos 7 dias</div>';
+    urg.forEach(p => {
+      const cor = p.dias <= 0 ? 'var(--vermelho)' : p.dias <= 3 ? 'var(--amarelo)' : 'var(--verde)';
+      const cl = SG.clientes.find(c => c.id === p.clienteId);
+      urgHtml += `<div class="sg-prazo-item" onclick="sgVerProcesso('${p.id}')">
+        <div class="sg-prazo-barra" style="background:${cor}"></div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500">${cl ? cl.nome : 'Cliente'}</div>
+          <div style="font-size:11px;color:var(--cinza)">${p.beneficio} · ${p.fase}</div>
+        </div>
+        <div style="font-family:var(--fonte-titulo);font-size:22px;color:${cor}">${p.dias <= 0 ? Math.abs(p.dias) + 'd atr.' : p.dias + 'd'}</div>
+      </div>`;
+    });
+  }
+  document.getElementById('sg-dash-urgentes').innerHTML = urgHtml;
+
+  // Processos recentes
+  const recentes = [...SG.processos].reverse().slice(0, 4);
+  let recHtml = '';
+  if (recentes.length) {
+    recHtml = '<div class="sg-section-lbl">Últimos processos</div>';
+    recentes.forEach(p => {
+      const cl = SG.clientes.find(c => c.id === p.clienteId);
+      recHtml += `<div class="sg-card" onclick="sgVerProcesso('${p.id}')">
+        <div class="sg-card-header">
+          <div><div class="sg-card-nome">${cl ? cl.nome : 'Cliente'}</div><div class="sg-card-sub">${p.beneficio}</div></div>
+          <span class="sg-badge sg-badge-azul">${p.fase}</span>
+        </div>
+        <div style="font-size:11px;color:var(--cinza)">${p.via}${p.numero ? ' · ' + p.numero : ''}</div>
+      </div>`;
+    });
+  } else {
+    recHtml = '<div class="sg-empty">Nenhum processo cadastrado ainda.<br><span style="font-size:11px">Vá em Clientes para começar.</span></div>';
+  }
+  document.getElementById('sg-dash-recentes').innerHTML = recHtml;
+}
+
+// ===== CLIENTES =====
+function sgRenderClientes() {
+  const el = document.getElementById('sg-lista-clientes');
+  if (!SG.clientes.length) { el.innerHTML = '<div class="sg-empty">Nenhum cliente cadastrado.</div>'; return; }
+  el.innerHTML = SG.clientes.map(c => {
+    const procs = SG.processos.filter(p => p.clienteId === c.id).length;
+    return `<div class="sg-card" onclick="sgVerCliente('${c.id}')">
+      <div class="sg-card-header">
+        <div><div class="sg-card-nome">${c.nome}</div><div class="sg-card-sub">${c.cpf || ''} ${c.tel ? '· ' + c.tel : ''}</div></div>
+        <span class="sg-badge sg-badge-ouro">${procs} proc.</span>
+      </div>
+      ${c.obs ? '<div style="font-size:11px;color:var(--cinza);margin-top:4px">' + c.obs + '</div>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function sgAbrirNovoCliente(id) {
+  document.getElementById('sg-mc-id').value = id || '';
+  document.getElementById('sg-mc-titulo').textContent = id ? 'Editar Cliente' : 'Novo Cliente';
+  if (id) {
+    const c = SG.clientes.find(x => x.id === id);
+    if (c) {
+      document.getElementById('sg-mc-nome').value = c.nome || '';
+      document.getElementById('sg-mc-cpf').value = c.cpf || '';
+      document.getElementById('sg-mc-nasc').value = c.nasc || '';
+      document.getElementById('sg-mc-tel').value = c.tel || '';
+      document.getElementById('sg-mc-email').value = c.email || '';
+      document.getElementById('sg-mc-end').value = c.end || '';
+      document.getElementById('sg-mc-obs').value = c.obs || '';
+    }
+  } else {
+    ['sg-mc-nome','sg-mc-cpf','sg-mc-tel','sg-mc-email','sg-mc-end','sg-mc-obs'].forEach(i => document.getElementById(i).value = '');
+    document.getElementById('sg-mc-nasc').value = '';
+  }
+  document.getElementById('sg-modal-cliente').classList.add('ativo');
+}
+
+function sgSalvarCliente() {
+  const nome = document.getElementById('sg-mc-nome').value.trim();
+  if (!nome) { alert('Informe o nome do cliente.'); return; }
+  const id = document.getElementById('sg-mc-id').value;
+  const dados = {
+    id: id || sgId(), nome,
+    cpf: document.getElementById('sg-mc-cpf').value.trim(),
+    nasc: document.getElementById('sg-mc-nasc').value,
+    tel: document.getElementById('sg-mc-tel').value.trim(),
+    email: document.getElementById('sg-mc-email').value.trim(),
+    end: document.getElementById('sg-mc-end').value.trim(),
+    obs: document.getElementById('sg-mc-obs').value.trim(),
+    dataCadastro: id ? (SG.clientes.find(c=>c.id===id)||{}).dataCadastro : new Date().toISOString(),
+  };
+  if (id) { const idx = SG.clientes.findIndex(c => c.id === id); if (idx >= 0) SG.clientes[idx] = dados; }
+  else SG.clientes.push(dados);
+  sgSalvar();
+  sgFechar('sg-modal-cliente');
+  sgRenderClientes();
+  sgRenderDashboard();
+}
+
+function sgVerCliente(id) {
+  const c = SG.clientes.find(x => x.id === id);
+  if (!c) return;
+  const procs = SG.processos.filter(p => p.clienteId === id);
+  document.getElementById('sg-vc-nome').textContent = c.nome;
+  document.getElementById('sg-vc-sub').textContent = c.cpf ? 'CPF: ' + c.cpf : 'Cliente';
+
+  let html = `
+    <div class="sg-grid-2">
+      ${c.tel ? `<div class="sg-info-box"><div class="sg-info-lbl">WhatsApp/Tel</div><div class="sg-info-val">${c.tel}</div></div>` : ''}
+      ${c.email ? `<div class="sg-info-box"><div class="sg-info-lbl">E-mail</div><div class="sg-info-val">${c.email}</div></div>` : ''}
+      ${c.nasc ? `<div class="sg-info-box"><div class="sg-info-lbl">Nascimento</div><div class="sg-info-val">${new Date(c.nasc+'T12:00:00').toLocaleDateString('pt-BR')}</div></div>` : ''}
+      ${c.end ? `<div class="sg-info-box" style="grid-column:1/-1"><div class="sg-info-lbl">Endereço</div><div class="sg-info-val">${c.end}</div></div>` : ''}
+    </div>
+    ${c.obs ? `<div style="background:#1A1A1A;border-radius:7px;padding:10px;margin-bottom:12px;font-size:12px;color:var(--cinza)">${c.obs}</div>` : ''}
+    <div class="sg-section-lbl">Processos (${procs.length})</div>
+  `;
+
+  if (procs.length) {
+    html += procs.map(p => `
+      <div class="sg-card" onclick="sgFechar('sg-modal-ver-cliente');sgVerProcesso('${p.id}')">
+        <div class="sg-card-header">
+          <div><div class="sg-card-nome" style="font-size:13px">${p.beneficio}</div><div class="sg-card-sub">${p.via}</div></div>
+          <span class="sg-badge sg-badge-azul">${p.fase}</span>
+        </div>
+      </div>`).join('');
+  } else {
+    html += '<div style="font-size:12px;color:var(--cinza);padding:8px 0">Nenhum processo cadastrado para este cliente.</div>';
+  }
+
+  // Atendimentos
+  const atends = (c.atendimentos || []);
+  html += '<div class="sg-section-lbl">Atendimentos (' + atends.length + ')</div>';
+  html += '<div style="background:#1A1A1A;border-radius:8px;padding:10px;margin-bottom:12px">';
+  if (atends.length) {
+    html += [...atends].reverse().map(a => `
+      <div class="atend-item">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+            <span class="atend-canal">${a.canal}</span>
+            <span class="atend-data">${new Date(a.data+'T12:00:00').toLocaleDateString('pt-BR')}</span>
+          </div>
+          <div class="atend-texto">${a.texto}</div>
+        </div>
+      </div>`).join('');
+  } else {
+    html += '<div style="font-size:12px;color:var(--cinza);text-align:center;padding:8px">Nenhum atendimento registrado</div>';
+  }
+  html += '</div>';
+
+  html += `
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+      <button class="sg-btn-sm destaque" onclick="sgFechar('sg-modal-ver-cliente');sgAbrirNovoProcesso('${id}')">+ Processo</button>
+      <button class="sg-btn-sm" onclick="sgAbrirAtendimento('${id}')">+ Atendimento</button>
+      <button class="sg-btn-sm" onclick="sgAbrirNovoCliente('${id}')">✎ Editar</button>
+      <button class="sg-btn-sm" style="color:var(--vermelho);border-color:var(--vermelho)" onclick="sgExcluirCliente('${id}')">Excluir</button>
+    </div>
+  `;
+
+  document.getElementById('sg-vc-conteudo').innerHTML = html;
+  document.getElementById('sg-modal-ver-cliente').classList.add('ativo');
+}
+
+function sgExcluirCliente(id) {
+  if (!confirm('Excluir cliente e todos os processos vinculados?')) return;
+  SG.clientes = SG.clientes.filter(c => c.id !== id);
+  SG.processos = SG.processos.filter(p => p.clienteId !== id);
+  sgSalvar();
+  sgFechar('sg-modal-ver-cliente');
+  sgRenderClientes();
+  sgRenderDashboard();
+}
+
+// ===== PROCESSOS =====
+function sgRenderProcessos() {
+  const el = document.getElementById('sg-lista-processos');
+  if (!SG.processos.length) { el.innerHTML = '<div class="sg-empty">Nenhum processo cadastrado.</div>'; return; }
+  const hoje = new Date();
+  el.innerHTML = [...SG.processos].reverse().map(p => {
+    const cl = SG.clientes.find(c => c.id === p.clienteId);
+    const dias = p.prazo ? Math.ceil((new Date(p.prazo) - hoje) / 86400000) : null;
+    const corD = dias === null ? '' : dias <= 0 ? 'var(--vermelho)' : dias <= 3 ? 'var(--amarelo)' : 'var(--verde)';
+    return `<div class="sg-card" onclick="sgVerProcesso('${p.id}')">
+      <div class="sg-card-header">
+        <div>
+          <div class="sg-card-nome">${cl ? cl.nome : 'Cliente'}</div>
+          <div class="sg-card-sub">${p.beneficio} · ${p.via}</div>
+        </div>
+        <span class="sg-badge sg-badge-azul">${p.fase}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+        <span style="font-size:11px;color:var(--cinza)">${p.numero || 'Sem número'} · ${p.responsavel || ''}</span>
+        ${dias !== null ? `<span style="font-size:11px;color:${corD};font-weight:600">${dias <= 0 ? Math.abs(dias) + 'd atr.' : dias + 'd'}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function sgAbrirNovoProcesso(clientePreSel, procId) {
+  document.getElementById('sg-mp-id').value = procId || '';
+  document.getElementById('sg-mp-titulo').textContent = procId ? 'Editar Processo' : 'Novo Processo';
+
+  // Preencher select de clientes
+  const sel = document.getElementById('sg-mp-cliente');
+  sel.innerHTML = SG.clientes.length
+    ? SG.clientes.map(c => `<option value="${c.id}" ${c.id === clientePreSel ? 'selected' : ''}>${c.nome}</option>`).join('')
+    : '<option value="">Cadastre um cliente primeiro</option>';
+
+  if (procId) {
+    const p = SG.processos.find(x => x.id === procId);
+    if (p) {
+      sel.value = p.clienteId;
+      document.getElementById('sg-mp-beneficio').value = p.beneficio;
+      document.getElementById('sg-mp-via').value = p.via;
+      document.getElementById('sg-mp-numero').value = p.numero || '';
+      document.getElementById('sg-mp-vara').value = p.vara || '';
+      document.getElementById('sg-mp-fase').value = p.fase;
+      document.getElementById('sg-mp-prazo').value = p.prazo || '';
+      document.getElementById('sg-mp-resp').value = p.responsavel || 'Advogado(a) titular';
+      document.getElementById('sg-mp-obs').value = p.obs || '';
+    }
+  } else {
+    ['sg-mp-numero','sg-mp-vara','sg-mp-obs'].forEach(i => document.getElementById(i).value = '');
+    document.getElementById('sg-mp-prazo').value = '';
+  }
+  document.getElementById('sg-modal-processo').classList.add('ativo');
+}
+
+function sgSalvarProcesso() {
+  const clienteId = document.getElementById('sg-mp-cliente').value;
+  if (!clienteId) { alert('Selecione um cliente. Cadastre o cliente primeiro.'); return; }
+  const id = document.getElementById('sg-mp-id').value;
+  const dados = {
+    id: id || sgId(),
+    clienteId,
+    beneficio: document.getElementById('sg-mp-beneficio').value,
+    via: document.getElementById('sg-mp-via').value,
+    numero: document.getElementById('sg-mp-numero').value.trim(),
+    vara: document.getElementById('sg-mp-vara').value.trim(),
+    fase: document.getElementById('sg-mp-fase').value,
+    prazo: document.getElementById('sg-mp-prazo').value,
+    responsavel: document.getElementById('sg-mp-resp').value,
+    obs: document.getElementById('sg-mp-obs').value.trim(),
+    andamentos: id ? (SG.processos.find(p=>p.id===id)||{}).andamentos || [] : [],
+    docs: id ? (SG.processos.find(p=>p.id===id)||{}).docs || {} : {},
+    finTotal: id ? (SG.processos.find(p=>p.id===id)||{}).finTotal || '' : '',
+    finRecebido: id ? (SG.processos.find(p=>p.id===id)||{}).finRecebido || '' : '',
+    finForma: id ? (SG.processos.find(p=>p.id===id)||{}).finForma || 'À vista' : 'À vista',
+    finObs: id ? (SG.processos.find(p=>p.id===id)||{}).finObs || '' : '',
+    dataCadastro: id ? (SG.processos.find(p=>p.id===id)||{}).dataCadastro : new Date().toISOString(),
+  };
+  if (id) { const idx = SG.processos.findIndex(p => p.id === id); if (idx >= 0) SG.processos[idx] = dados; }
+  else SG.processos.push(dados);
+  sgSalvar();
+  sgFechar('sg-modal-processo');
+  sgRenderProcessos();
+  sgRenderDashboard();
+}
+
+function sgVerProcesso(id) {
+  const p = SG.processos.find(x => x.id === id);
+  if (!p) return;
+  const cl = SG.clientes.find(c => c.id === p.clienteId);
+  const hoje = new Date();
+  const dias = p.prazo ? Math.ceil((new Date(p.prazo) - hoje) / 86400000) : null;
+  const corD = dias === null ? 'var(--cinza)' : dias <= 0 ? 'var(--vermelho)' : dias <= 3 ? 'var(--amarelo)' : 'var(--verde)';
+
+  document.getElementById('sg-vp-titulo').textContent = cl ? cl.nome : 'Processo';
+  document.getElementById('sg-vp-sub').textContent = p.beneficio + ' · ' + p.via;
+
+  // DOCS checklist
+  const DOCS_LISTA = ['CNIS','CTPS','RG/CPF','Comprovante de residência','Laudos médicos','PPP','LTCAT','Procuração','Contrato de honorários','Declaração de hipossuficiência'];
+
+  let html = `
+    <div class="sg-grid-2">
+      <div class="sg-info-box"><div class="sg-info-lbl">Fase</div><div class="sg-info-val" style="color:var(--azul)">${p.fase}</div></div>
+      <div class="sg-info-box"><div class="sg-info-lbl">Responsável</div><div class="sg-info-val">${p.responsavel || '-'}</div></div>
+      ${p.numero ? `<div class="sg-info-box" style="grid-column:1/-1"><div class="sg-info-lbl">Número do processo</div><div class="sg-info-val">${p.numero}</div></div>` : ''}
+      ${p.vara ? `<div class="sg-info-box" style="grid-column:1/-1"><div class="sg-info-lbl">Vara</div><div class="sg-info-val">${p.vara}</div></div>` : ''}
+      ${dias !== null ? `<div class="sg-info-box"><div class="sg-info-lbl">Prazo</div><div class="sg-info-val" style="color:${corD}">${dias <= 0 ? Math.abs(dias) + ' dias atraso' : dias + ' dias'}</div></div>` : ''}
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+      <button class="sg-btn-sm destaque" onclick="sgAbrirGerarDoc('${p.id}')">📄 Gerar Docs</button>
+      <button class="sg-btn-sm" onclick="sgAbrirAndamento('${p.id}')">+ Andamento</button>
+      <button class="sg-btn-sm" onclick="sgAbrirFinanceiro('${p.id}')">💲 Financeiro</button>
+      <button class="sg-btn-sm" onclick="sgAbrirNovoProcesso(null,'${p.id}')">✎ Editar</button>
+      <button class="sg-btn-sm" style="color:var(--vermelho);border-color:var(--vermelho)" onclick="sgExcluirProcesso('${p.id}')">Excluir</button>
+    </div>
+
+    <!-- FINANCEIRO RESUMO -->
+    ${(p.finTotal || p.finRecebido) ? `
+    <div style="background:#0A1A0A;border:1px solid #1A3A1A;border-radius:8px;padding:12px;margin-bottom:14px">
+      <div class="sg-section-lbl" style="margin-top:0">💲 Financeiro</div>
+      <div class="sg-fin-linha"><span class="sg-fin-lbl">Honorários combinados</span><span class="sg-fin-val" style="color:var(--ouro)">R$ ${parseFloat(p.finTotal||0).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span></div>
+      <div class="sg-fin-linha"><span class="sg-fin-lbl">Recebido</span><span class="sg-fin-val" style="color:var(--verde)">R$ ${parseFloat(p.finRecebido||0).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span></div>
+      <div class="sg-fin-linha"><span class="sg-fin-lbl">A receber</span><span class="sg-fin-val" style="color:var(--vermelho)">R$ ${Math.max(0,(parseFloat(p.finTotal||0)-parseFloat(p.finRecebido||0))).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span></div>
+      ${p.finObs ? `<div style="font-size:11px;color:var(--cinza);margin-top:6px">${p.finObs}</div>` : ''}
+    </div>` : ''}
+
+    <!-- DOCUMENTOS -->
+    <div class="sg-section-lbl">📁 Documentos recebidos</div>
+    <div style="background:#1A1A1A;border-radius:8px;padding:10px;margin-bottom:14px">
+      ${DOCS_LISTA.map(doc => {
+        const ok = (p.docs || {})[doc];
+        return `<div class="sg-doc-item">
+          <div class="sg-doc-check ${ok ? 'ok' : ''}" onclick="sgToggleDoc('${p.id}','${doc}',this)">${ok ? '✓' : ''}</div>
+          <div class="sg-doc-nome">${doc}</div>
+        </div>`;
+      }).join('')}
+      ${(p.docsExtras || []).map(doc => {
+        const ok = (p.docs || {})['extra_' + doc];
+        return `<div class="sg-doc-item">
+          <div class="sg-doc-check ${ok ? 'ok' : ''}" onclick="sgToggleDocExtra('${p.id}','${doc}',this)">${ok ? '✓' : ''}</div>
+          <div class="sg-doc-nome" style="flex:1">${doc}</div>
+          <button class="sg-doc-remove" onclick="sgRemoverDocExtra('${p.id}','${doc}')">✕</button>
+        </div>`;
+      }).join('')}
+      <div class="sg-doc-extra-input">
+        <input type="text" id="sg-doc-extra-inp-${p.id}" placeholder="Adicionar documento..." onkeydown="if(event.key==='Enter')sgAdicionarDocExtra('${p.id}')">
+        <button class="sg-doc-extra-btn" onclick="sgAdicionarDocExtra('${p.id}')">+</button>
+      </div>
+    </div>
+
+    <!-- ANDAMENTOS -->
+    <div class="sg-section-lbl">📋 Andamentos (${(p.andamentos||[]).length})</div>
+    <div style="background:#1A1A1A;border-radius:8px;padding:10px;margin-bottom:14px">
+      ${(p.andamentos||[]).length ? [...(p.andamentos||[])].reverse().map(a => `
+        <div class="sg-andamento">
+          <div class="sg-and-dot"></div>
+          <div style="flex:1">
+            <div class="sg-and-data">${new Date(a.data+'T12:00:00').toLocaleDateString('pt-BR')}</div>
+            <div class="sg-and-texto">${a.texto}</div>
+          </div>
+        </div>`).join('') : '<div style="font-size:12px;color:var(--cinza);text-align:center;padding:8px">Nenhum andamento registrado</div>'}
+    </div>
+
+    ${p.obs ? `<div style="background:#1A1A1A;border-radius:7px;padding:10px;font-size:12px;color:var(--cinza)">${p.obs}</div>` : ''}
+  `;
+
+  document.getElementById('sg-vp-conteudo').innerHTML = html;
+  document.getElementById('sg-modal-ver-processo').classList.add('ativo');
+}
+
+function sgToggleDoc(procId, doc, el) {
+  const idx = SG.processos.findIndex(p => p.id === procId);
+  if (idx < 0) return;
+  if (!SG.processos[idx].docs) SG.processos[idx].docs = {};
+  SG.processos[idx].docs[doc] = !SG.processos[idx].docs[doc];
+  el.classList.toggle('ok', SG.processos[idx].docs[doc]);
+  el.textContent = SG.processos[idx].docs[doc] ? '✓' : '';
+  sgSalvar();
+}
+
+function sgExcluirProcesso(id) {
+  if (!confirm('Excluir este processo?')) return;
+  SG.processos = SG.processos.filter(p => p.id !== id);
+  sgSalvar();
+  sgFechar('sg-modal-ver-processo');
+  sgRenderProcessos();
+  sgRenderDashboard();
+}
+
+// ===== ANDAMENTOS =====
+function sgAbrirAndamento(procId) {
+  const p = SG.processos.find(x => x.id === procId);
+  const cl = p ? SG.clientes.find(c => c.id === p.clienteId) : null;
+  document.getElementById('sg-and-proc-id').value = procId;
+  document.getElementById('sg-and-sub').textContent = cl ? cl.nome + ' · ' + p.beneficio : '';
+  document.getElementById('sg-and-data').value = new Date().toISOString().split('T')[0];
+  document.getElementById('sg-and-texto').value = '';
+  document.getElementById('sg-modal-andamento').classList.add('ativo');
+}
+
+function sgSalvarAndamento() {
+  const procId = document.getElementById('sg-and-proc-id').value;
+  const texto = document.getElementById('sg-and-texto').value.trim();
+  const data = document.getElementById('sg-and-data').value;
+  if (!texto) { alert('Descreva o andamento.'); return; }
+  const idx = SG.processos.findIndex(p => p.id === procId);
+  if (idx < 0) return;
+  if (!SG.processos[idx].andamentos) SG.processos[idx].andamentos = [];
+  SG.processos[idx].andamentos.push({ id: sgId(), data, texto });
+  sgSalvar();
+  sgFechar('sg-modal-andamento');
+  sgVerProcesso(procId);
+}
+
+// ===== FINANCEIRO =====
+function sgAbrirFinanceiro(procId) {
+  const p = SG.processos.find(x => x.id === procId);
+  const cl = p ? SG.clientes.find(c => c.id === p.clienteId) : null;
+  document.getElementById('sg-fin-proc-id').value = procId;
+  document.getElementById('sg-fin-sub').textContent = cl ? cl.nome + ' · ' + p.beneficio : '';
+  document.getElementById('sg-fin-total').value = p.finTotal || '';
+  document.getElementById('sg-fin-recebido').value = p.finRecebido || '';
+  document.getElementById('sg-fin-forma').value = p.finForma || 'À vista';
+  document.getElementById('sg-fin-obs').value = p.finObs || '';
+  document.getElementById('sg-modal-financeiro').classList.add('ativo');
+}
+
+function sgSalvarFinanceiro() {
+  const procId = document.getElementById('sg-fin-proc-id').value;
+  const idx = SG.processos.findIndex(p => p.id === procId);
+  if (idx < 0) return;
+  SG.processos[idx].finTotal = document.getElementById('sg-fin-total').value;
+  SG.processos[idx].finRecebido = document.getElementById('sg-fin-recebido').value;
+  SG.processos[idx].finForma = document.getElementById('sg-fin-forma').value;
+  SG.processos[idx].finObs = document.getElementById('sg-fin-obs').value.trim();
+  sgSalvar();
+  sgFechar('sg-modal-financeiro');
+  sgVerProcesso(procId);
+  sgRenderDashboard();
+}
+
+// ===== PRAZOS =====
+function sgRenderPrazos() {
+  const el = document.getElementById('sg-lista-prazos');
+  const hoje = new Date();
+  const comPrazo = SG.processos
+    .filter(p => p.prazo && p.fase !== 'Concluído')
+    .map(p => ({ ...p, dias: Math.ceil((new Date(p.prazo) - hoje) / 86400000) }))
+    .sort((a, b) => a.dias - b.dias);
+  if (!comPrazo.length) { el.innerHTML = '<div class="sg-empty">Nenhum prazo cadastrado.<br><span style="font-size:11px">Adicione uma data de prazo nos processos.</span></div>'; return; }
+  const grupos = [
+    { label: 'Vencidos', f: p => p.dias < 0, cor: 'var(--vermelho)' },
+    { label: 'Urgente — até 3 dias', f: p => p.dias >= 0 && p.dias <= 3, cor: 'var(--vermelho)' },
+    { label: 'Atenção — 4 a 7 dias', f: p => p.dias > 3 && p.dias <= 7, cor: 'var(--amarelo)' },
+    { label: 'No prazo — 8+ dias', f: p => p.dias > 7, cor: 'var(--verde)' },
+  ];
+  let html = '';
+  grupos.forEach(g => {
+    const itens = comPrazo.filter(g.f);
+    if (!itens.length) return;
+    html += `<div class="sg-section-lbl">${g.label}</div>`;
+    itens.forEach(p => {
+      const cl = SG.clientes.find(c => c.id === p.clienteId);
+      html += `<div class="sg-prazo-item" onclick="sgVerProcesso('${p.id}')">
+        <div class="sg-prazo-barra" style="background:${g.cor}"></div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500">${cl ? cl.nome : 'Cliente'}</div>
+          <div style="font-size:11px;color:var(--cinza)">${p.beneficio} · ${p.fase}</div>
+        </div>
+        <div style="font-family:var(--fonte-titulo);font-size:22px;color:${g.cor}">${p.dias < 0 ? Math.abs(p.dias) + 'd atr.' : p.dias + 'd'}</div>
+      </div>`;
+    });
+  });
+  el.innerHTML = html;
+}
+
+// ===== FINANCEIRO GERAL =====
+function sgRenderFinanceiro() {
+  const totalHon = SG.processos.reduce((s, p) => s + (parseFloat(p.finTotal) || 0), 0);
+  const totalRec = SG.processos.reduce((s, p) => s + (parseFloat(p.finRecebido) || 0), 0);
+  const totalPend = Math.max(0, totalHon - totalRec);
+  const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2});
+
+  document.getElementById('sg-resumo-fin').innerHTML = `
+    <div style="background:#0A1A0A;border:1px solid #1A3A1A;border-radius:10px;padding:16px;margin-bottom:16px">
+      <div class="sg-fin-linha"><span class="sg-fin-lbl">Total de honorários combinados</span><span class="sg-fin-val" style="color:var(--ouro)">${fmt(totalHon)}</span></div>
+      <div class="sg-fin-linha"><span class="sg-fin-lbl">Total recebido</span><span class="sg-fin-val" style="color:var(--verde)">${fmt(totalRec)}</span></div>
+      <div class="sg-fin-linha"><span class="sg-fin-lbl">Total a receber</span><span class="sg-fin-val" style="color:var(--vermelho)">${fmt(totalPend)}</span></div>
+    </div>
+  `;
+
+  const comFin = SG.processos.filter(p => p.finTotal);
+  let html = '';
+  if (comFin.length) {
+    html += '<div class="sg-section-lbl">Por processo</div>';
+    comFin.forEach(p => {
+      const cl = SG.clientes.find(c => c.id === p.clienteId);
+      const pend = Math.max(0, (parseFloat(p.finTotal)||0) - (parseFloat(p.finRecebido)||0));
+      const pago = pend <= 0;
+      html += `<div class="sg-card" onclick="sgVerProcesso('${p.id}')">
+        <div class="sg-card-header">
+          <div><div class="sg-card-nome">${cl ? cl.nome : 'Cliente'}</div><div class="sg-card-sub">${p.beneficio}</div></div>
+          <span class="sg-badge ${pago ? 'sg-badge-verde' : 'sg-badge-vermelho'}">${pago ? 'Quitado' : 'Pendente'}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px">
+          <span style="color:var(--cinza)">Combinado: <span style="color:var(--ouro)">${fmt(parseFloat(p.finTotal)||0)}</span></span>
+          <span style="color:var(--cinza)">Recebido: <span style="color:var(--verde)">${fmt(parseFloat(p.finRecebido)||0)}</span></span>
+        </div>
+        ${pend > 0 ? `<div style="font-size:11px;color:var(--vermelho);margin-top:3px">A receber: ${fmt(pend)}</div>` : ''}
+      </div>`;
+    });
+  } else {
+    html = '<div class="sg-empty">Nenhum dado financeiro cadastrado.</div>';
+  }
+  document.getElementById('sg-lista-fin').innerHTML = html;
+}
+
+
+// ===== ALERTA DE PRAZOS AO ABRIR =====
+function sgVerificarAlertas() {
+  const hoje = new Date();
+  const urgentes = SG.processos.filter(p => {
+    if (!p.prazo || p.fase === 'Concluído') return false;
+    const d = Math.ceil((new Date(p.prazo) - hoje) / 86400000);
+    return d <= 3;
+  });
+  if (!urgentes.length) return;
+  let html = '';
+  urgentes.forEach(p => {
+    const cl = SG.clientes.find(c => c.id === p.clienteId);
+    const dias = Math.ceil((new Date(p.prazo) - hoje) / 86400000);
+    const cor = dias <= 0 ? 'var(--vermelho)' : 'var(--amarelo)';
+    html += `<div class="sg-alert-box" onclick="sgFechar('sg-modal-alertas');sgVerProcesso('${p.id}')">
+      <div class="sg-alert-titulo" style="color:${cor}">${dias <= 0 ? '🔴 VENCIDO há ' + Math.abs(dias) + ' dia(s)' : '🟡 Vence em ' + dias + ' dia(s)'}</div>
+      <div class="sg-alert-desc">${cl ? cl.nome : 'Cliente'} · ${p.beneficio}</div>
+    </div>`;
+  });
+  document.getElementById('sg-alertas-conteudo').innerHTML = html;
+  document.getElementById('sg-modal-alertas').classList.add('ativo');
+}
+
+// ===== ATENDIMENTOS =====
+function sgAbrirAtendimento(clienteId) {
+  const cl = SG.clientes.find(c => c.id === clienteId);
+  document.getElementById('sg-at-cliente-id').value = clienteId;
+  document.getElementById('sg-at-sub').textContent = cl ? cl.nome : '';
+  document.getElementById('sg-at-data').value = new Date().toISOString().split('T')[0];
+  document.getElementById('sg-at-texto').value = '';
+  document.getElementById('sg-modal-atendimento').classList.add('ativo');
+}
+
+function sgSalvarAtendimento() {
+  const clienteId = document.getElementById('sg-at-cliente-id').value;
+  const texto = document.getElementById('sg-at-texto').value.trim();
+  const data = document.getElementById('sg-at-data').value;
+  if (!texto) { alert('Descreva o atendimento.'); return; }
+  const idx = SG.clientes.findIndex(c => c.id === clienteId);
+  if (idx < 0) return;
+  if (!SG.clientes[idx].atendimentos) SG.clientes[idx].atendimentos = [];
+  SG.clientes[idx].atendimentos.push({
+    id: sgId(), data,
+    canal: document.getElementById('sg-at-canal').value,
+    texto
+  });
+  sgSalvar();
+  sgFechar('sg-modal-atendimento');
+  sgVerCliente(clienteId);
+}
+
+// ===== GERAR DOCUMENTOS =====
+let sgDocProcId = '';
+
+function sgAbrirGerarDoc(procId) {
+  sgDocProcId = procId;
+  const p = SG.processos.find(x => x.id === procId);
+  const cl = p ? SG.clientes.find(c => c.id === p.clienteId) : null;
+  document.getElementById('sg-gd-titulo').textContent = 'Gerar Documento';
+  document.getElementById('sg-gd-sub').textContent = cl ? cl.nome + ' · ' + (p.beneficio || '') : '';
+  document.getElementById('sg-gd-resultado').style.display = 'none';
+  document.getElementById('sg-gd-copiar').style.display = 'none';
+  document.getElementById('sg-modal-gerar-doc').classList.add('ativo');
+}
+
+function sgGerarDoc() {
+  const tipo = document.getElementById('sg-gd-tipo').value;
+  const adv = document.getElementById('sg-gd-adv').value.trim();
+  const oab = document.getElementById('sg-gd-oab').value.trim();
+  const cidade = document.getElementById('sg-gd-cidade').value.trim();
+  const p = SG.processos.find(x => x.id === sgDocProcId);
+  const cl = p ? SG.clientes.find(c => c.id === p.clienteId) : null;
+  if (!cl) return;
+
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  const advNome = adv || '[NOME DO ADVOGADO]';
+  const oabTxt = oab || '[OAB/XX XXXXX]';
+  const cidadeTxt = cidade || '[CIDADE]';
+  const clienteNome = cl.nome || '[NOME DO CLIENTE]';
+  const clienteCPF = cl.cpf || '[CPF]';
+  const clienteEnd = cl.end || '[ENDEREÇO]';
+  const clienteNasc = cl.nasc ? new Date(cl.nasc+'T12:00:00').toLocaleDateString('pt-BR') : '[DATA DE NASCIMENTO]';
+  const beneficio = p ? p.beneficio : '[BENEFÍCIO]';
+  const honorarios = p && p.finTotal ? 'R$ ' + parseFloat(p.finTotal).toLocaleString('pt-BR', {minimumFractionDigits:2}) : '[VALOR DOS HONORÁRIOS]';
+
+  let texto = '';
+
+  if (tipo === 'procuracao') {
+    texto = `PROCURAÇÃO AD JUDICIA ET EXTRA
+
+OUTORGANTE: ${clienteNome}, [nacionalidade], [estado civil], nascido(a) em ${clienteNasc}, portador(a) do CPF nº ${clienteCPF}, residente e domiciliado(a) em ${clienteEnd}.
+
+OUTORGADO: ${advNome}, Advogado(a), inscrito(a) na ${oabTxt}, com endereço profissional em [ENDEREÇO DO ESCRITÓRIO].
+
+PODERES: Pelo presente instrumento, o(a) OUTORGANTE nomeia e constitui seu(sua) bastante procurador(a) o(a) OUTORGADO(A) acima qualificado(a), a quem confere amplos poderes para o foro em geral, em qualquer Juízo, Instância ou Tribunal, podendo propor ações, contestar, reconvir, transigir, desistir, renunciar, dar e receber quitação, receber citação, intimação e notificação, assinar termos de audiência, interpor recursos de qualquer natureza, requerer o que for de direito, praticar todos os atos necessários ao fiel cumprimento deste mandato, especialmente para tratar de assuntos junto ao Instituto Nacional do Seguro Social (INSS) e/ou perante o Poder Judiciário, relativos ao benefício de ${beneficio}, com poderes para receber e dar quitação, firmar acordos, e mais o que se fizer necessário.
+
+${cidadeTxt}, ${hoje}.
+
+
+_________________________________
+${clienteNome}
+CPF: ${clienteCPF}`;
+  } else {
+    texto = `CONTRATO DE PRESTAÇÃO DE SERVIÇOS ADVOCATÍCIOS
+
+CONTRATANTE: ${clienteNome}, [nacionalidade], [estado civil], nascido(a) em ${clienteNasc}, portador(a) do CPF nº ${clienteCPF}, residente e domiciliado(a) em ${clienteEnd}.
+
+CONTRATADO(A): ${advNome}, Advogado(a), inscrito(a) na ${oabTxt}, com endereço profissional em [ENDEREÇO DO ESCRITÓRIO].
+
+CLÁUSULA 1ª — DO OBJETO
+O(A) CONTRATADO(A) obriga-se a prestar serviços advocatícios ao(à) CONTRATANTE, consistentes no acompanhamento e defesa de seus interesses no processo/requerimento referente ao benefício de ${beneficio}, junto ao INSS e/ou ao Poder Judiciário, incluindo todas as instâncias necessárias.
+
+CLÁUSULA 2ª — DOS HONORÁRIOS
+Pelos serviços prestados, o(a) CONTRATANTE pagará ao(à) CONTRATADO(A) o valor de ${honorarios}, [descrever forma de pagamento: à vista / parcelado em X vezes / percentual de êxito sobre o valor da condenação].
+
+CLÁUSULA 3ª — DAS OBRIGAÇÕES DO CONTRATANTE
+O(A) CONTRATANTE obriga-se a fornecer ao(à) CONTRATADO(A) todos os documentos necessários à condução do caso, comparecer às audiências e perícias quando convocado(a), e comunicar qualquer alteração em seus dados ou situação que possa influenciar o andamento do processo.
+
+CLÁUSULA 4ª — DA RESCISÃO
+O presente contrato poderá ser rescindido por qualquer das partes, mediante notificação prévia, observadas as disposições do Estatuto da OAB e do Código de Ética e Disciplina da OAB.
+
+CLÁUSULA 5ª — DO FORO
+Fica eleito o foro da Comarca de ${cidadeTxt} para dirimir eventuais questões oriundas do presente contrato.
+
+${cidadeTxt}, ${hoje}.
+
+
+_________________________________          _________________________________
+${clienteNome}                              ${advNome}
+CPF: ${clienteCPF}                          ${oabTxt}`;
+  }
+
+  const el = document.getElementById('sg-gd-resultado');
+  el.textContent = texto;
+  el.style.display = 'block';
+  document.getElementById('sg-gd-copiar').style.display = 'block';
+}
+
+function sgCopiarDoc() {
+  const texto = document.getElementById('sg-gd-resultado').textContent;
+  navigator.clipboard.writeText(texto).then(() => alert('Documento copiado!')).catch(() => {
+    const t = document.createElement('textarea'); t.value = texto;
+    document.body.appendChild(t); t.select(); document.execCommand('copy');
+    document.body.removeChild(t); alert('Documento copiado!');
+  });
+}
+
+// ===== CALCULADORA HONORÁRIOS =====
+function sgAbrirHonorarios() {
+  document.getElementById('sg-hon-causa').value = '';
+  document.getElementById('sg-hon-resultado').innerHTML = '';
+  document.getElementById('sg-hon-resultado').classList.remove('visivel');
+  document.getElementById('sg-modal-honorarios').classList.add('ativo');
+}
+
+function sgCalcHonorarios() {
+  const causa = parseFloat(document.getElementById('sg-hon-causa').value) || 0;
+  const tipo = document.getElementById('sg-hon-tipo').value;
+  if (!causa) return;
+  const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2});
+  let html = '';
+  if (tipo === 'exito') {
+    const faixas = [{p:20,desc:'20% — Referência OAB para causas previdenciárias'},{p:25,desc:'25% — Prática comum no mercado'},{p:30,desc:'30% — Casos complexos / multiperícias'}];
+    html = '<div style="font-size:11px;color:var(--cinza);margin-bottom:10px">Honorários de êxito sobre valor da causa de ' + fmt(causa) + '</div>';
+    faixas.forEach(f => {
+      html += `<div class="sg-fin-linha"><span class="sg-fin-lbl">${f.desc}</span><span class="sg-fin-val" style="color:var(--ouro)">${fmt(causa * f.p / 100)}</span></div>`;
+    });
+  } else if (tipo === 'fixo') {
+    const sugestoes = [{v:1500,desc:'Caso simples — benefício por incapacidade'},{v:3000,desc:'Caso médio — aposentadoria especial'},{v:5000,desc:'Caso complexo — múltiplos pedidos / recursos'}];
+    html = '<div style="font-size:11px;color:var(--cinza);margin-bottom:10px">Sugestões de honorários fixos por complexidade</div>';
+    sugestoes.forEach(s => {
+      html += `<div class="sg-fin-linha"><span class="sg-fin-lbl">${s.desc}</span><span class="sg-fin-val" style="color:var(--ouro)">${fmt(s.v)}</span></div>`;
+    });
+  } else {
+    const entrada = causa * 0.10;
+    const exitoBase = causa * 0.20;
+    html = '<div style="font-size:11px;color:var(--cinza);margin-bottom:10px">Honorários mistos sobre ' + fmt(causa) + '</div>';
+    html += `<div class="sg-fin-linha"><span class="sg-fin-lbl">Entrada (10% do valor da causa)</span><span class="sg-fin-val" style="color:var(--azul)">${fmt(entrada)}</span></div>`;
+    html += `<div class="sg-fin-linha"><span class="sg-fin-lbl">Êxito (20% sobre a condenação)</span><span class="sg-fin-val" style="color:var(--ouro)">${fmt(exitoBase)}</span></div>`;
+    html += `<div class="sg-fin-linha"><span class="sg-fin-lbl">Total estimado</span><span class="sg-fin-val" style="color:var(--verde)">${fmt(entrada + exitoBase)}</span></div>`;
+  }
+  const el = document.getElementById('sg-hon-resultado');
+  el.innerHTML = html;
+  el.classList.add('visivel');
+}
+
+// ===== QUALIDADE DE SEGURADO NO PROCESSO =====
+function sgVerificarQS(procId) {
+  const p = SG.processos.find(x => x.id === procId);
+  const cl = p ? SG.clientes.find(c => c.id === p.clienteId) : null;
+  if (!cl || !cl.nasc) {
+    alert('Cadastre a data de nascimento do cliente para usar esta função.');
+    return;
+  }
+  irPara('qualidade');
+  sgFechar('sg-modal-ver-processo');
+}
+
+
+// ===== DOCUMENTOS EXTRAS =====
+function sgAdicionarDocExtra(procId) {
+  const input = document.getElementById('sg-doc-extra-inp-' + procId);
+  if (!input) return;
+  const nome = input.value.trim();
+  if (!nome) return;
+  const idx = SG.processos.findIndex(p => p.id === procId);
+  if (idx < 0) return;
+  if (!SG.processos[idx].docsExtras) SG.processos[idx].docsExtras = [];
+  if (SG.processos[idx].docsExtras.includes(nome)) { input.value = ''; return; }
+  SG.processos[idx].docsExtras.push(nome);
+  sgSalvar();
+  input.value = '';
+  sgVerProcesso(procId);
+}
+
+function sgRemoverDocExtra(procId, nome) {
+  const idx = SG.processos.findIndex(p => p.id === procId);
+  if (idx < 0) return;
+  SG.processos[idx].docsExtras = (SG.processos[idx].docsExtras || []).filter(d => d !== nome);
+  sgSalvar();
+  sgVerProcesso(procId);
+}
+
+function sgToggleDocExtra(procId, nome, el) {
+  const idx = SG.processos.findIndex(p => p.id === procId);
+  if (idx < 0) return;
+  if (!SG.processos[idx].docsExtras) SG.processos[idx].docsExtras = [];
+  const chave = 'extra_' + nome;
+  if (!SG.processos[idx].docs) SG.processos[idx].docs = {};
+  SG.processos[idx].docs[chave] = !SG.processos[idx].docs[chave];
+  el.classList.toggle('ok', SG.processos[idx].docs[chave]);
+  el.textContent = SG.processos[idx].docs[chave] ? '✓' : '';
+  sgSalvar();
+}
+
+// ===== UPLOAD DE MODELOS =====
+function sgLerModelo(tipo, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const nomeEl = document.getElementById('sg-upload-' + tipo + '-nome');
+  const areaEl = document.getElementById('sg-upload-' + tipo + '-area');
+  nomeEl.textContent = file.name;
+  areaEl.classList.add('tem-arquivo');
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    let texto = '';
+    // Se for .txt, usa diretamente. Se for .docx, salva aviso
+    if (file.name.endsWith('.txt')) {
+      texto = e.target.result;
+    } else {
+      // Para .docx não conseguimos ler o texto binário diretamente
+      // Orientamos o usuário a usar .txt
+      alert('Para .docx, converta para .txt primeiro.\n\nNo Word: Arquivo → Salvar como → Texto simples (.txt)');
+      input.value = '';
+      nomeEl.textContent = '';
+      areaEl.classList.remove('tem-arquivo');
+      return;
+    }
+    localStorage.setItem('sg_modelo_' + tipo, texto);
+    sgAtualizarStatusModelo(tipo);
+    alert('Modelo salvo com sucesso!');
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+function sgAtualizarStatusModelo(tipo) {
+  const chave = 'sg_modelo_' + tipo;
+  const el = document.getElementById('sg-modelo-' + tipo + '-status');
+  if (!el) return;
+  const modelo = localStorage.getItem(chave);
+  if (modelo) {
+    el.innerHTML = `<div class="sg-modelo-salvo">✅ Modelo personalizado salvo <button class="sg-btn-sm" style="color:var(--vermelho);border-color:var(--vermelho)" onclick="sgRemoverModelo('${tipo}')">Remover</button></div>`;
+  } else {
+    el.innerHTML = '<div style="font-size:11px;color:var(--cinza);margin-bottom:8px">Nenhum modelo personalizado. Será usado o modelo padrão do app.</div>';
+  }
+}
+
+function sgRemoverModelo(tipo) {
+  if (!confirm('Remover modelo personalizado? O modelo padrão será usado.')) return;
+  localStorage.removeItem('sg_modelo_' + tipo);
+  sgAtualizarStatusModelo(tipo);
+}
+
+function sgAbrirModelos() {
+  sgAtualizarStatusModelo('proc');
+  sgAtualizarStatusModelo('cont');
+  document.getElementById('sg-modal-modelos').classList.add('ativo');
+}
+
+// Patch no sgGerarDoc para usar modelo personalizado se existir
+const _sgGerarDocOriginal = sgGerarDoc;
+sgGerarDoc = function() {
+  const tipo = document.getElementById('sg-gd-tipo').value;
+  const chave = tipo === 'procuracao' ? 'sg_modelo_proc' : 'sg_modelo_cont';
+  const modeloPersonalizado = localStorage.getItem(chave);
+
+  if (modeloPersonalizado) {
+    // Usar modelo personalizado com substituição de campos
+    const adv = document.getElementById('sg-gd-adv').value.trim();
+    const oab = document.getElementById('sg-gd-oab').value.trim();
+    const cidade = document.getElementById('sg-gd-cidade').value.trim();
+    const p = SG.processos.find(x => x.id === sgDocProcId);
+    const cl = p ? SG.clientes.find(c => c.id === p.clienteId) : null;
+    if (!cl) { _sgGerarDocOriginal(); return; }
+
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    let texto = modeloPersonalizado
+      .replace(/\{\{CLIENTE_NOME\}\}/g, cl.nome || '')
+      .replace(/\{\{CLIENTE_CPF\}\}/g, cl.cpf || '')
+      .replace(/\{\{CLIENTE_NASC\}\}/g, cl.nasc ? new Date(cl.nasc+'T12:00:00').toLocaleDateString('pt-BR') : '')
+      .replace(/\{\{CLIENTE_END\}\}/g, cl.end || '')
+      .replace(/\{\{BENEFICIO\}\}/g, p ? p.beneficio : '')
+      .replace(/\{\{ADV_NOME\}\}/g, adv || '[SEU NOME]')
+      .replace(/\{\{ADV_OAB\}\}/g, oab || '[OAB]')
+      .replace(/\{\{CIDADE\}\}/g, cidade || '[CIDADE]')
+      .replace(/\{\{DATA\}\}/g, hoje)
+      .replace(/\{\{HONORARIOS\}\}/g, p && p.finTotal ? 'R$ ' + parseFloat(p.finTotal).toLocaleString('pt-BR',{minimumFractionDigits:2}) : '[VALOR]');
+
+    const el = document.getElementById('sg-gd-resultado');
+    el.textContent = texto;
+    el.style.display = 'block';
+    document.getElementById('sg-gd-copiar').style.display = 'block';
+  } else {
+    _sgGerarDocOriginal();
+  }
+};
+
+
+// ===== TAREFAS =====
+if (!SG.tarefas) SG.tarefas = JSON.parse(localStorage.getItem('sg_tarefas') || '[]');
+
+const _sgSalvarOriginal = sgSalvar;
+sgSalvar = function() {
+  localStorage.setItem('sg_clientes', JSON.stringify(SG.clientes));
+  localStorage.setItem('sg_processos', JSON.stringify(SG.processos));
+  localStorage.setItem('sg_tarefas', JSON.stringify(SG.tarefas));
+};
+
+let sgTarefaFiltro = 'todas';
+
+function sgAbrirNovaTarefa(procId, clienteId) {
+  document.getElementById('sg-mt-id').value = '';
+  document.getElementById('sg-mt-titulo').textContent = 'Nova Tarefa';
+  document.getElementById('sg-mt-proc-id-fix').value = procId || '';
+  document.getElementById('sg-mt-titulo-inp').value = '';
+  document.getElementById('sg-mt-desc').value = '';
+  document.getElementById('sg-mt-resp').value = '';
+
+  // Data prevista = agora
+  const agora = new Date();
+  agora.setMinutes(0, 0, 0);
+  agora.setHours(agora.getHours() + 1);
+  document.getElementById('sg-mt-prevista').value = agora.toISOString().slice(0,16);
+  document.getElementById('sg-mt-fatal').value = '';
+
+  // Popular clientes
+  const selCl = document.getElementById('sg-mt-cliente');
+  selCl.innerHTML = '<option value="">— Sem vínculo —</option>' +
+    SG.clientes.map(c => `<option value="${c.id}" ${c.id === clienteId ? 'selected' : ''}>${c.nome}</option>`).join('');
+  selCl.onchange = sgAtualizarProcessosTarefa;
+
+  // Popular processos
+  sgAtualizarProcessosTarefa(procId);
+
+  document.getElementById('sg-modal-tarefa').classList.add('ativo');
+}
+
+function sgAtualizarProcessosTarefa(procIdPresel) {
+  const clienteId = document.getElementById('sg-mt-cliente').value;
+  const selProc = document.getElementById('sg-mt-processo');
+  const procs = clienteId
+    ? SG.processos.filter(p => p.clienteId === clienteId)
+    : SG.processos;
+  const procIdFix = document.getElementById('sg-mt-proc-id-fix').value;
+  const presel = (typeof procIdPresel === 'string' ? procIdPresel : null) || procIdFix || '';
+  selProc.innerHTML = '<option value="">— Sem vínculo —</option>' +
+    procs.map(p => {
+      const cl = SG.clientes.find(c => c.id === p.clienteId);
+      return `<option value="${p.id}" ${p.id === presel ? 'selected' : ''}>${cl ? cl.nome + ' · ' : ''}${p.beneficio}</option>`;
+    }).join('');
+}
+
+function sgSalvarTarefa() {
+  const titulo = document.getElementById('sg-mt-titulo-inp').value.trim();
+  if (!titulo) { alert('Informe o título da tarefa.'); return; }
+  const prevista = document.getElementById('sg-mt-prevista').value;
+  if (!prevista) { alert('Informe a data prevista.'); return; }
+  const id = document.getElementById('sg-mt-id').value;
+  const dados = {
+    id: id || sgId(),
+    titulo,
+    desc: document.getElementById('sg-mt-desc').value.trim(),
+    prevista,
+    fatal: document.getElementById('sg-mt-fatal').value,
+    responsavel: document.getElementById('sg-mt-resp').value.trim(),
+    clienteId: document.getElementById('sg-mt-cliente').value,
+    processoId: document.getElementById('sg-mt-processo').value,
+    tipo: document.getElementById('sg-mt-tipo').value,
+    status: id ? (SG.tarefas.find(t => t.id === id) || {}).status || 'pendente' : 'pendente',
+    dataCriacao: id ? (SG.tarefas.find(t => t.id === id) || {}).dataCriacao : new Date().toISOString(),
+  };
+  if (id) {
+    const idx = SG.tarefas.findIndex(t => t.id === id);
+    if (idx >= 0) SG.tarefas[idx] = dados;
+  } else {
+    SG.tarefas.push(dados);
+  }
+  sgSalvar();
+  sgFechar('sg-modal-tarefa');
+  sgRenderTarefas();
+  sgRenderDashboard();
+}
+
+function sgFiltrarTarefas(filtro) {
+  sgTarefaFiltro = filtro;
+  ['todas','pendente','concluida','cancelada'].forEach(f => {
+    const btn = document.getElementById('sg-tf-btn-' + f);
+    if (btn) {
+      btn.style.borderColor = f === filtro ? 'var(--ouro)' : '';
+      btn.style.color = f === filtro ? 'var(--ouro)' : '';
+    }
+  });
+  sgRenderTarefas();
+}
+
+function sgRenderTarefas() {
+  const el = document.getElementById('sg-lista-tarefas');
+  if (!el) return;
+  const hoje = new Date();
+
+  let tarefas = [...SG.tarefas].sort((a, b) => new Date(a.prevista) - new Date(b.prevista));
+  if (sgTarefaFiltro !== 'todas') tarefas = tarefas.filter(t => t.status === sgTarefaFiltro);
+
+  if (!tarefas.length) {
+    el.innerHTML = '<div class="sg-empty">Nenhuma tarefa encontrada.<br><span style="font-size:11px">Clique em + Nova Tarefa para começar.</span></div>';
+    return;
+  }
+
+  // Agrupar por data
+  const grupos = {};
+  tarefas.forEach(t => {
+    const d = new Date(t.prevista);
+    const hoje2 = new Date(); hoje2.setHours(0,0,0,0);
+    const amanha = new Date(hoje2); amanha.setDate(amanha.getDate()+1);
+    const semana = new Date(hoje2); semana.setDate(semana.getDate()+7);
+    let grupo;
+    if (d < hoje2) grupo = '🔴 Atrasadas';
+    else if (d < amanha) grupo = '📅 Hoje';
+    else if (d < semana) grupo = '📆 Esta semana';
+    else grupo = '🗓️ Futuras';
+    if (!grupos[grupo]) grupos[grupo] = [];
+    grupos[grupo].push(t);
+  });
+
+  const ordem = ['🔴 Atrasadas','📅 Hoje','📆 Esta semana','🗓️ Futuras'];
+  let html = '';
+  ordem.forEach(g => {
+    if (!grupos[g]) return;
+    html += `<div class="sg-section-lbl">${g}</div>`;
+    grupos[g].forEach(t => {
+      const cl = t.clienteId ? SG.clientes.find(c => c.id === t.clienteId) : null;
+      const pr = t.processoId ? SG.processos.find(p => p.id === t.processoId) : null;
+      const fmtDt = dt => {
+        if (!dt) return '';
+        const d = new Date(dt);
+        return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+      };
+      const fatalVenc = t.fatal && new Date(t.fatal) < hoje && t.status === 'pendente';
+      html += `<div class="sg-tarefa-item ${t.status}" onclick="sgVerTarefa('${t.id}')">
+        <div class="sg-tarefa-check ${t.status}" onclick="event.stopPropagation();sgConcluirTarefa('${t.id}')">${t.status === 'concluida' ? '✓' : t.status === 'cancelada' ? '✕' : ''}</div>
+        <div style="flex:1">
+          <div class="sg-tarefa-titulo">${t.titulo}</div>
+          ${t.desc ? `<div style="font-size:11px;color:var(--cinza);margin-bottom:4px">${t.desc}</div>` : ''}
+          <div class="sg-tarefa-meta">
+            <span class="sg-tarefa-data">📅 ${fmtDt(t.prevista)}</span>
+            ${t.fatal ? `<span class="sg-tarefa-data fatal ${fatalVenc ? 'fatal' : ''}">⚠️ Fatal: ${fmtDt(t.fatal)}</span>` : ''}
+            ${t.responsavel ? `<span class="sg-tarefa-resp">👤 ${t.responsavel}</span>` : ''}
+            ${cl ? `<span class="sg-tarefa-cliente">${cl.nome}</span>` : ''}
+            ${t.tipo !== 'Tarefa' ? `<span class="sg-badge sg-badge-ouro">${t.tipo}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+    });
+  });
+  el.innerHTML = html;
+}
+
+function sgConcluirTarefa(id) {
+  const idx = SG.tarefas.findIndex(t => t.id === id);
+  if (idx < 0) return;
+  const status = SG.tarefas[idx].status;
+  SG.tarefas[idx].status = status === 'concluida' ? 'pendente' : 'concluida';
+  sgSalvar();
+  sgRenderTarefas();
+  sgRenderDashboard();
+}
+
+function sgVerTarefa(id) {
+  const t = SG.tarefas.find(x => x.id === id);
+  if (!t) return;
+  const cl = t.clienteId ? SG.clientes.find(c => c.id === t.clienteId) : null;
+  const pr = t.processoId ? SG.processos.find(p => p.id === t.processoId) : null;
+  const fmtDt = dt => {
+    if (!dt) return '-';
+    const d = new Date(dt);
+    return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+  };
+
+  // Abrir modal de edição com dados preenchidos
+  document.getElementById('sg-mt-id').value = t.id;
+  document.getElementById('sg-mt-titulo').textContent = 'Editar Tarefa';
+  document.getElementById('sg-mt-proc-id-fix').value = t.processoId || '';
+  document.getElementById('sg-mt-titulo-inp').value = t.titulo;
+  document.getElementById('sg-mt-desc').value = t.desc || '';
+  document.getElementById('sg-mt-prevista').value = t.prevista ? t.prevista.slice(0,16) : '';
+  document.getElementById('sg-mt-fatal').value = t.fatal ? t.fatal.slice(0,16) : '';
+  document.getElementById('sg-mt-resp').value = t.responsavel || '';
+  document.getElementById('sg-mt-tipo').value = t.tipo || 'Tarefa';
+
+  const selCl = document.getElementById('sg-mt-cliente');
+  selCl.innerHTML = '<option value="">— Sem vínculo —</option>' +
+    SG.clientes.map(c => `<option value="${c.id}" ${c.id === t.clienteId ? 'selected' : ''}>${c.nome}</option>`).join('');
+  selCl.onchange = sgAtualizarProcessosTarefa;
+  sgAtualizarProcessosTarefa(t.processoId);
+
+  // Adicionar botão cancelar/excluir no modal
+  const box = document.querySelector('#sg-modal-tarefa .sg-modal-box');
+  const existing = document.getElementById('sg-mt-acoes-extra');
+  if (existing) existing.remove();
+  const div = document.createElement('div');
+  div.id = 'sg-mt-acoes-extra';
+  div.style.cssText = 'display:flex;gap:8px;margin-top:8px';
+  div.innerHTML = `
+    <button class="sg-btn-sm" onclick="sgMudarStatusTarefa('${t.id}','cancelada');sgFechar('sg-modal-tarefa')" style="color:var(--vermelho);border-color:var(--vermelho)">Cancelar tarefa</button>
+    <button class="sg-btn-sm" onclick="sgExcluirTarefa('${t.id}')">Excluir</button>
+  `;
+  box.appendChild(div);
+
+  document.getElementById('sg-modal-tarefa').classList.add('ativo');
+}
+
+function sgMudarStatusTarefa(id, status) {
+  const idx = SG.tarefas.findIndex(t => t.id === id);
+  if (idx < 0) return;
+  SG.tarefas[idx].status = status;
+  sgSalvar();
+  sgRenderTarefas();
+  sgRenderDashboard();
+}
+
+function sgExcluirTarefa(id) {
+  if (!confirm('Excluir esta tarefa?')) return;
+  SG.tarefas = SG.tarefas.filter(t => t.id !== id);
+  sgSalvar();
+  sgFechar('sg-modal-tarefa');
+  sgRenderTarefas();
+  sgRenderDashboard();
+}
+
+// Atualizar dashboard para incluir tarefas
+const _sgRenderDashboardOriginal = sgRenderDashboard;
+sgRenderDashboard = function() {
+  _sgRenderDashboardOriginal();
+  // Adicionar contagem de tarefas pendentes hoje
+  const hoje = new Date();
+  hoje.setHours(23,59,59,999);
+  const amanha = new Date();
+  amanha.setHours(0,0,0,0);
+  const tarefasHoje = (SG.tarefas || []).filter(t =>
+    t.status === 'pendente' && new Date(t.prevista) <= hoje && new Date(t.prevista) >= amanha
+  ).length;
+  const tarefasAtrasadas = (SG.tarefas || []).filter(t => {
+    const d = new Date(); d.setHours(0,0,0,0);
+    return t.status === 'pendente' && new Date(t.prevista) < d;
+  }).length;
+  const dashNums = document.getElementById('sg-dash-nums');
+  if (dashNums && (tarefasHoje > 0 || tarefasAtrasadas > 0)) {
+    dashNums.innerHTML += `
+      <div class="sg-dash-card" onclick="irPara('escritorio');sgAba('tarefas');sgFiltrarTarefas('pendente')" style="cursor:pointer">
+        <div class="sg-dash-num" style="color:var(--amarelo)">${tarefasHoje}</div>
+        <div class="sg-dash-lbl">Tarefas hoje</div>
+      </div>
+      <div class="sg-dash-card" onclick="irPara('escritorio');sgAba('tarefas')" style="cursor:pointer">
+        <div class="sg-dash-num" style="color:var(--vermelho)">${tarefasAtrasadas}</div>
+        <div class="sg-dash-lbl">Tarefas atrasadas</div>
+      </div>
+    `;
+  }
+};
+
+// Adicionar tarefas nos alertas ao abrir app
+const _sgVerificarAlertasOriginal = sgVerificarAlertas;
+sgVerificarAlertas = function() {
+  const hoje = new Date();
+  const urgentes = SG.processos.filter(p => {
+    if (!p.prazo || p.fase === 'Concluído') return false;
+    const d = Math.ceil((new Date(p.prazo) - hoje) / 86400000);
+    return d <= 3;
+  });
+  const tarefasAtrasadas = (SG.tarefas || []).filter(t => {
+    const d = new Date(); d.setHours(0,0,0,0);
+    return t.status === 'pendente' && new Date(t.prevista) < d;
+  });
+  if (!urgentes.length && !tarefasAtrasadas.length) return;
+  let html = '';
+  urgentes.forEach(p => {
+    const cl = SG.clientes.find(c => c.id === p.clienteId);
+    const dias = Math.ceil((new Date(p.prazo) - hoje) / 86400000);
+    const cor = dias <= 0 ? 'var(--vermelho)' : 'var(--amarelo)';
+    html += `<div class="sg-alert-box" onclick="sgFechar('sg-modal-alertas');sgVerProcesso('${p.id}')">
+      <div class="sg-alert-titulo" style="color:${cor}">${dias <= 0 ? '🔴 PRAZO VENCIDO há ' + Math.abs(dias) + ' dia(s)' : '🟡 Prazo vence em ' + dias + ' dia(s)'}</div>
+      <div class="sg-alert-desc">${cl ? cl.nome : 'Cliente'} · ${p.beneficio}</div>
+    </div>`;
+  });
+  if (tarefasAtrasadas.length) {
+    html += `<div class="sg-alert-box" onclick="sgFechar('sg-modal-alertas');irPara('escritorio');sgAba('tarefas')">
+      <div class="sg-alert-titulo" style="color:var(--vermelho)">🔴 ${tarefasAtrasadas.length} tarefa(s) atrasada(s)</div>
+      <div class="sg-alert-desc">${tarefasAtrasadas.map(t => t.titulo).slice(0,3).join(' · ')}</div>
+    </div>`;
+  }
+  document.getElementById('sg-alertas-conteudo').innerHTML = html;
+  document.getElementById('sg-modal-alertas').classList.add('ativo');
+};
+
+// Adicionar botão + Tarefa dentro do processo
+const _sgVerProcessoOriginal = sgVerProcesso;
+sgVerProcesso = function(id) {
+  _sgVerProcessoOriginal(id);
+  // Injetar tarefas vinculadas ao processo no modal
+  const p = SG.processos.find(x => x.id === id);
+  if (!p) return;
+  const cl = SG.clientes.find(c => c.id === p.clienteId);
+  const tarefasProc = (SG.tarefas || []).filter(t => t.processoId === id && t.status !== 'cancelada');
+  const conteudo = document.getElementById('sg-vp-conteudo');
+  if (!conteudo) return;
+  const fmtDt = dt => {
+    if (!dt) return '';
+    const d = new Date(dt);
+    return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  };
+  let tarefasHtml = `<div class="sg-section-lbl">✅ Tarefas vinculadas (${tarefasProc.length})</div>`;
+  tarefasHtml += `<div style="margin-bottom:8px"><button class="sg-btn-sm destaque" onclick="sgFechar('sg-modal-ver-processo');sgAbrirNovaTarefa('${id}','${p.clienteId}')">+ Nova tarefa para este processo</button></div>`;
+  if (tarefasProc.length) {
+    tarefasProc.forEach(t => {
+      const cor = t.status === 'concluida' ? 'var(--verde)' : 'var(--amarelo)';
+      tarefasHtml += `<div class="sg-tarefa-item ${t.status}" onclick="sgVerTarefa('${t.id}')" style="margin-bottom:6px">
+        <div class="sg-tarefa-check ${t.status}" onclick="event.stopPropagation();sgConcluirTarefa('${t.id}');sgVerProcesso('${id}')">${t.status==='concluida'?'✓':''}</div>
+        <div style="flex:1">
+          <div class="sg-tarefa-titulo" style="font-size:12px">${t.titulo}</div>
+          <div class="sg-tarefa-meta">
+            <span class="sg-tarefa-data">📅 ${fmtDt(t.prevista)}</span>
+            ${t.responsavel ? `<span class="sg-tarefa-resp">👤 ${t.responsavel}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+    });
+  } else {
+    tarefasHtml += '<div style="font-size:11px;color:var(--cinza);padding:8px 0">Nenhuma tarefa vinculada a este processo.</div>';
+  }
+  conteudo.insertAdjacentHTML('beforeend', tarefasHtml);
+};
+
+// Inicializar tarefas ao entrar no app
+const _entrarNoAppOriginalTarefas = entrarNoApp;
 
 </script>
 
